@@ -4,6 +4,9 @@ package ru.job4j.fit;
  * Программа расчета идеального веса.
  */
 public class Fit {
+    private final int HUNDRED = 100;
+    private final int HUNDRED_TEN = 110;
+    private final double COEF = 1.15;
     private double result;
 
     /**
@@ -12,7 +15,7 @@ public class Fit {
      * @return идеальный вес.
      */
     double manWeight(double height) {
-        result = (height - 100) * 1.15;
+        result = (height - HUNDRED) * COEF;
 		return this.result;
     }
 
@@ -22,7 +25,7 @@ public class Fit {
      * @return идеальный вес.
      */
     double womanWeight(double height) {
-        result = (height - 110) * 1.15;
+        result = (height - HUNDRED_TEN) * COEF;
 		return this.result;
     }
 }
