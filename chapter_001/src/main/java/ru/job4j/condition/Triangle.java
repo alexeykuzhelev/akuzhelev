@@ -3,7 +3,7 @@ package ru.job4j.condition;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 03.03.2018
+ * @since 04.03.2018
  */
 
 public class Triangle {
@@ -55,20 +55,13 @@ public class Triangle {
 	 *
 	 * Подумайте какое надо написать условие, чтобы определить можно ли построить треугольник.
 	 *
-	 * @param ab Длина от точки a b.
-	 * @param ac Длина от точки a c.
-	 * @param bc Длина от точки b c.
+	 * @param ab Длина от точки a до b.
+	 * @param ac Длина от точки a до c.
+	 * @param bc Длина от точки b до c.
 	 * @return
 	 */
 	private boolean exist(double ab, double ac, double bc) {
 		// сторона треугольника меньше суммы двух других сторон
-		if (ab < ac + bc) {
-			if (ac < ab + bc) {
-				if (bc < ab + ac){
-					return true;
-				}
-			}
-		}
-		return false;
+		return (ab < ac + bc) && (ac < ab + bc) && (bc < ab + ac);
 	}
 }
