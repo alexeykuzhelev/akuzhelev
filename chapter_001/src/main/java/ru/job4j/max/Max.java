@@ -16,7 +16,6 @@ public class Max {
     }
     public int max(int first, int second, int third) {
         // метод возвращает максимальное из трех чисел.
-        int temp = this.max(first, second);
-        return max(temp, third);
+        return max(max(first, second), third);
     }
 }
