@@ -7,12 +7,12 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 29.03.2018
+ * @since 30.03.2018
  */
 
 public class TurnTest {
     @Test
-    public void WhenArrayHasOddLength() {
+    public void whenTurnArrayWithOddAmountOfElementsThenTurnedArray() {
         //тест, проверяющий переворот массива с нечётным числом элементов.
         Turn turner = new Turn();
         int[] input = {1, 2, 3, 4, 5};
@@ -22,7 +22,7 @@ public class TurnTest {
     }
 
     @Test
-    public void WhenArrayHasEvenLength() {
+    public void whenTurnArrayWithEvenAmountOfElementsThenTurnedArray() {
         //тест, проверяющий переворот массива с чётным числом элементов.
         Turn turner = new Turn();
         int[] input = {4, 1, 6, 2};
