@@ -3,7 +3,7 @@ package ru.job4j.tictactoe;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 03.04.2018
+ * @since 14.04.2018
  */
 
 public class Logic3T {
@@ -17,11 +17,40 @@ public class Logic3T {
      * Метод проверяет,	есть ли в поле выигрышные комбинации для Крестика.
      */
     public boolean isWinnerX() {
-        boolean row = true; //переменная с результатом по строкам
-        boolean column = true; //переменная с результатом по столбцам
-        boolean diagonalRight = true; //переменная с результатом проверки первой диагонали
-        boolean diagonalLeft = true; //переменная с результатом проверки второй диагонали
-        //Проверка по строкам и столбцам
+        return (this.checkDiagonalX() || this.checkLinesX());
+    }
+
+    /**
+     * Метод проверки по диагоналям для Крестика.
+     */
+    private boolean checkDiagonalX() {
+        boolean diagonalRight = true; //переменная с результатом по первой диагонали
+        boolean diagonalLeft = true; //переменная с результатом по второй диагонали
+        //Проверяем первую диагональ
+        for (int i = 0, j = 0; i < this.table.length; i++) {
+            if (!this.table[i][j].hasMarkX()) {
+                diagonalRight = false;
+                break;
+            }
+            j++;
+        }
+        //Проверяем вторую диагональ
+        for (int i = 0, j = this.table.length - 1; i < this.table.length; i++) {
+            if (!this.table[i][j].hasMarkX()) {
+                diagonalLeft = false;
+                break;
+            }
+            j--;
+        }
+        return (diagonalRight || diagonalLeft);
+    }
+
+    /**
+     * Метод проверки по горизонтали и вертикали для Крестика.
+     */
+    private boolean checkLinesX() {
+        boolean row = true; //переменная с результатом проверки по строкам
+        boolean column = true; //переменная с результатом проверки по столбцам
         for (int i = 0; i < this.table.length; i++) {
             column = true;
             row = true;
@@ -43,9 +72,25 @@ public class Logic3T {
                 break;
             }
         }
+        return (row || column);
+    }
+
+    /**
+     * Метод проверяет,	есть ли в поле выигрышные комбинации для Нолика.
+     */
+    public boolean isWinnerO() {
+        return (this.checkDiagonalO() || this.checkLinesO());
+    }
+
+    /**
+     * Метод проверки по диагоналям для Нолика.
+     */
+    private boolean checkDiagonalO() {
+        boolean diagonalRight = true; //переменная с результатом по первой диагонали
+        boolean diagonalLeft = true; //переменная с результатом по второй диагонали
         //Проверяем первую диагональ
         for (int i = 0, j = 0; i < this.table.length; i++) {
-            if (!this.table[i][j].hasMarkX()) {
+            if (!this.table[i][j].hasMarkO()) {
                 diagonalRight = false;
                 break;
             }
@@ -53,27 +98,21 @@ public class Logic3T {
         }
         //Проверяем вторую диагональ
         for (int i = 0, j = this.table.length - 1; i < this.table.length; i++) {
-            if (!this.table[i][j].hasMarkX()) {
+            if (!this.table[i][j].hasMarkO()) {
                 diagonalLeft = false;
                 break;
             }
             j--;
         }
-        if (row || column || diagonalRight || diagonalLeft) {
-            return true;
-        }
-        return false;
+        return (diagonalRight || diagonalLeft);
     }
 
     /**
-     * Метод проверяет,	есть ли в поле выигрышные комбинации для Нолика.
+     * Метод проверки по горизонтали и вертикали для Нолика.
      */
-    public boolean isWinnerO() {
-        boolean row = true; //переменная с результатом по строкам
-        boolean column = true; //переменная с результатом по столбцам
-        boolean diagonalRight = true; //переменная с результатом проверки первой диагонали
-        boolean diagonalLeft = true; //переменная с результатом проверки второй диагонали
-        //Проверка по строкам и столбцам
+    private boolean checkLinesO() {
+        boolean row = true; //переменная с результатом проверки по строкам
+        boolean column = true; //переменная с результатом проверки по столбцам
         for (int i = 0; i < this.table.length; i++) {
             column = true;
             row = true;
@@ -95,26 +134,7 @@ public class Logic3T {
                 break;
             }
         }
-        //Проверяем первую диагональ
-        for (int i = 0, j = 0; i < this.table.length; i++) {
-            if (!this.table[i][j].hasMarkO()) {
-                diagonalRight = false;
-                break;
-            }
-            j++;
-        }
-        //Проверяем вторую диагональ
-        for (int i = 0, j = this.table.length - 1; i < this.table.length; i++) {
-            if (!this.table[i][j].hasMarkO()) {
-                diagonalLeft = false;
-                break;
-            }
-            j--;
-        }
-        if (row || column || diagonalRight || diagonalLeft) {
-            return true;
-        }
-        return false;
+        return (row || column);
     }
 
     /**
