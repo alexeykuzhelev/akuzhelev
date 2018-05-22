@@ -24,25 +24,23 @@ public class Logic3T {
      * Метод проверки по диагоналям для Крестика.
      */
     private boolean checkDiagonalX() {
-        boolean diagonalRight = true; //переменная с результатом по первой диагонали
-        boolean diagonalLeft = true; //переменная с результатом по второй диагонали
-        //Проверяем первую диагональ
+        boolean diagonal1 = true; //переменная с результатом по первой диагонали
+        boolean diagonal2 = true; //переменная с результатом по второй диагонали
         for (int i = 0, j = 0; i < this.table.length; i++) {
             if (!this.table[i][j].hasMarkX()) {
-                diagonalRight = false;
+                diagonal1 = false;
                 break;
             }
             j++;
         }
-        //Проверяем вторую диагональ
         for (int i = 0, j = this.table.length - 1; i < this.table.length; i++) {
             if (!this.table[i][j].hasMarkX()) {
-                diagonalLeft = false;
+                diagonal2 = false;
                 break;
             }
             j--;
         }
-        return (diagonalRight || diagonalLeft);
+        return (diagonal1 || diagonal2);
     }
 
     /**
@@ -54,14 +52,12 @@ public class Logic3T {
         for (int i = 0; i < this.table.length; i++) {
             column = true;
             row = true;
-            //Проверка по строкам
             for (int j = 0; j < this.table.length; j++) {
                 if (!this.table[i][j].hasMarkX()) {
                     row = false;
                     break;
                 }
             }
-            //Проверка по столбцам
             for (int j = 0; j < this.table.length; j++) {
                 if (!this.table[j][i].hasMarkX()) {
                     column = false;
@@ -86,25 +82,23 @@ public class Logic3T {
      * Метод проверки по диагоналям для Нолика.
      */
     private boolean checkDiagonalO() {
-        boolean diagonalRight = true; //переменная с результатом по первой диагонали
-        boolean diagonalLeft = true; //переменная с результатом по второй диагонали
-        //Проверяем первую диагональ
+        boolean diagonal1 = true; //переменная с результатом по первой диагонали
+        boolean diagonal2 = true; //переменная с результатом по второй диагонали
         for (int i = 0, j = 0; i < this.table.length; i++) {
             if (!this.table[i][j].hasMarkO()) {
-                diagonalRight = false;
+                diagonal1 = false;
                 break;
             }
             j++;
         }
-        //Проверяем вторую диагональ
         for (int i = 0, j = this.table.length - 1; i < this.table.length; i++) {
             if (!this.table[i][j].hasMarkO()) {
-                diagonalLeft = false;
+                diagonal2 = false;
                 break;
             }
             j--;
         }
-        return (diagonalRight || diagonalLeft);
+        return (diagonal1 || diagonal2);
     }
 
     /**
@@ -116,14 +110,12 @@ public class Logic3T {
         for (int i = 0; i < this.table.length; i++) {
             column = true;
             row = true;
-            //Проверка по строкам
             for (int j = 0; j < this.table.length; j++) {
                 if (!this.table[i][j].hasMarkO()) {
                     row = false;
                     break;
                 }
             }
-            //Проверка по столбцам
             for (int j = 0; j < this.table.length; j++) {
                 if (!this.table[j][i].hasMarkO()) {
                     column = false;
@@ -139,13 +131,10 @@ public class Logic3T {
 
     /**
      * Метод проверяет,	есть ли пустые клетки для новых ходов.
+	 * @return Если пустые клетки есть, вернет true, иначе false.
      */
     public boolean hasGap() {
-        /*Создадим логическую переменную с результатом проверки
-		на пустые клетки. Считаем, что сначала пустых клеток нет.*/
-        boolean vacant = false;
-        /*Проходим по каждой клетке поля и если где-то есть хоть одна
-		пустая клетка, то записываем в vacant true и прерываем циклы.*/
+        boolean vacant = false; //переменная с результатом проверки на пустые клетки
         for (int i = 0; i < this.table.length; i++) {
             vacant = false;
             for (int j = 0; j < this.table.length; j++) {
@@ -158,8 +147,6 @@ public class Logic3T {
                 break;
             }
         }
-        /*Если пустые клетки есть, то вернет true.
-        Если пустых клеток нет, то вернет false.*/
         return vacant;
     }
 }
