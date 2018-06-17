@@ -20,11 +20,9 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item1 = new Item("test1", "testDescription1", 123L); //создаем первую заявку
         tracker.add(item1); //добавляем заявку в трекер
-        item1.setId("1111");  //проставляем id
         Item item2 = new Item("test2", "testDescription2", 4567L); //создаем вторую заявку
         tracker.add(item2); //добавляем заявку в трекер
-        item2.setId("22222");  //проставляем id
-        Item result = tracker.findById("1111"); //находим заявку по id
+        Item result = tracker.findById(item1.getId()); //находим заявку по id
         assertThat(result, is(item1));
     }
 
@@ -37,11 +35,9 @@ public class TrackerTest {
         tracker.add(previous);
         //Создаем новую заявку.
         Item next = new Item("test2", "testDescription2", 1234L);
-        //Проставляем старый id из previous, который был сгенерирован выше.
-        next.setId(previous.getId());
-        //Обновляем заявку в трекере.
+        //Обновляем заявку в трекере, проставляя старый id из previous.
         tracker.replace(previous.getId(), next);
-        //Проверяем, что заявка с таким id имеет новые имя test2.
+        //Проверяем, что заявка на месте previous имеет новое имя test2.
         assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
     }
 
@@ -51,13 +47,11 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item1 = new Item("test1", "testDescription1", 123L);
         tracker.add(item1);
-        item1.setId("1111"); //проставляем id первой заявки
         Item item2 = new Item("test2", "testDescription2", 4567L);
         tracker.add(item2);
-        item2.setId("22222"); //проставляем id второй заявки
-        tracker.delete("1111"); //удаляем первую заявку
+        tracker.delete(item1.getId()); //удаляем первую заявку
         //Проверяем, что заявки с таким id больше нет (возвращает null).
-        assertNull(tracker.findById("1111"));
+        assertNull(tracker.findById(item1.getId()));
     }
 
     @Test

@@ -74,6 +74,7 @@ public class Tracker {
      * @param item
      */
     public void replace(String id, Item item) {
+        item.setId(id);
         for (int i = 0; i != this.position; i++) {
             if (findById(id).equals(items[i])) {
                 items[i] = item;
@@ -94,6 +95,7 @@ public class Tracker {
                 items[i] = null;
                 System.arraycopy(items, i + 1, items, i, items.length - i - 1);
                 items[items.length - 1] = null;
+                this.position--;
                 break;
             }
         }
