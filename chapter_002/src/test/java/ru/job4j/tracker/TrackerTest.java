@@ -30,7 +30,7 @@ public class TrackerTest {
     public void whenReplaceNameThenReturnNewName() {
         //тест, проверяющий, что заявка отредактирована
         Tracker tracker = new Tracker();
-        Item previous = new Item("test1", "testDescription", 123L);
+        Item previous = new Item("test1", "testDescription1", 123L);
         //Добавляем заявку в трекер. Теперь в объект проинициализирован id.
         tracker.add(previous);
         //Создаем новую заявку.
