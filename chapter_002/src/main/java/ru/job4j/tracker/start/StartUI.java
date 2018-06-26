@@ -1,6 +1,7 @@
 package ru.job4j.tracker.start;
 
 import ru.job4j.tracker.models.*;
+import java.util.*;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
@@ -59,6 +60,11 @@ public class StartUI {
     private final Tracker tracker;
 
     /**
+     * Перевод на новую строку.
+     */
+    private final String ln = System.lineSeparator();
+
+    /**
      * Конструтор инициализирующий поля.
      * @param input ввод данных.
      * @param tracker хранилище заявок.
@@ -75,7 +81,7 @@ public class StartUI {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
-            String answer = this.input.ask("Введите пункт меню: ");
+            String answer = this.input.ask(ln + "Введите пункт меню: ");
             if (ADD.equals(answer)) {
                 // 0. Add new Item
                 this.createItem(); //добавление заявки вынесено в отдельный метод
@@ -87,7 +93,7 @@ public class StartUI {
                 this.editItem(); //редактирование заявки вынесено в отдельный метод
             } else if (DELETE.equals(answer)) {
                 // 3. Delete item
-                this.deleteItem(); //удаления заявок вынесено в отдельный метод
+                this.deleteItem(); //удаление заявок вынесено в отдельный метод
             } else if (FIND_BY_ID.equals(answer)) {
                 // 4. Find item by Id
                 this.findItemById(); //поиск заявки по id вынесен в отдельный метод
@@ -120,10 +126,10 @@ public class StartUI {
         System.out.println("------------ Отображение всех заявок --------------");
         Item[] items = this.tracker.findAll();
         for (Item item : items) {
-            System.out.println("Id заявки: " + item.getId()
-                    + "\nИмя заявки: " + item.getName()
-                    + "\nОписание заявки: " + item.getDescription()
-                    + "\n-------------------------------------------");
+            System.out.println("Id заявки: " + item.getId() + ln
+                    + "Имя заявки: " + item.getName() + ln
+                    + "Описание заявки: " + item.getDescription() + ln
+                    + "-------------------------------------------");
         }
     }
 
@@ -133,11 +139,16 @@ public class StartUI {
     private void editItem() {
         System.out.println("------------ Редактирование заявки --------------");
         String id = this.input.ask("Введите id заявки, которую надо изменить: ");
-        String newName = this.input.ask("Введите имя новой заявки: ");
-        String newDescription = this.input.ask("Введите описание новой заявки: ");
-        Item item = new Item(newName, newDescription);
-        this.tracker.replace(id, item);
-        System.out.println("------------ Заявка с Id: " + id + " изменена -----------");
+        Item item = this.tracker.findById(id); //проверка, что такой item есть в трекере
+        if (item != null) {
+            String newName = this.input.ask("Введите имя новой заявки: ");
+            String newDescription = this.input.ask("Введите описание новой заявки: ");
+            Item newItem = new Item(newName, newDescription);
+            this.tracker.replace(id, newItem);
+            System.out.println("------------ Заявка с Id: " + id + " изменена -----------");
+        } else {
+            System.out.println("Заявка не найдена, введите другой Id");
+        }
     }
 
     /**
@@ -146,8 +157,13 @@ public class StartUI {
     private void deleteItem() {
         System.out.println("------------ Удаление заявки --------------");
         String id = this.input.ask("Введите id заявки, которую надо удалить: ");
-        this.tracker.delete(id);
-        System.out.println("------------ Заявка с Id: " + id + " удалена -----------");
+        Item item = this.tracker.findById(id); //проверка, что такой item есть в трекере
+        if (item != null) {
+            this.tracker.delete(id);
+            System.out.println("------------ Заявка с Id: " + id + " удалена -----------");
+        } else {
+            System.out.println("Заявка не найдена, введите другой Id");
+        }
     }
 
     /**
@@ -160,10 +176,10 @@ public class StartUI {
         if (item == null) {
             System.out.println("Заявка с таким id не найдена ");
         } else {
-            System.out.println("------------ Заявка с Id: " + id + " найдена -----------"
-                    + "\nИмя заявки: " + item.getName()
-                    + "\nОписание заявки: " + item.getDescription()
-                    + "\n-------------------------------------------");
+            System.out.println("------------ Заявка с Id: " + id + " найдена -----------" + ln
+                    + "Имя заявки: " + item.getName() + ln
+                    + "Описание заявки: " + item.getDescription() + ln
+                    + "-------------------------------------------");
         }
     }
 
@@ -179,10 +195,10 @@ public class StartUI {
         } else {
             System.out.println("Найдены такие заявки: ");
             for (Item item : items) {
-                System.out.println("------------ Заявка с именем: " + name + " найдена -----------"
-                        + "\nId заявки: " + item.getId()
-                        + "\nОписание заявки: " + item.getDescription()
-                        + "\n-------------------------------------------");
+                System.out.println("------------ Заявка с именем: " + name + " найдена -----------" + ln
+                        + "Id заявки: " + item.getId() + ln
+                        + "Описание заявки: " + item.getDescription() + ln
+                        + "-------------------------------------------");
             }
         }
     }
@@ -191,14 +207,16 @@ public class StartUI {
      * Метод выводит пункты меню.
      */
     private void showMenu() {
-        System.out.println("\nМеню: \n"
-                + " 0. Добавление новой заявки\n"
-                + " 1. Показать все заявки\n"
-                + " 2. Редактирование заявки\n"
-                + " 3. Удаление заявки\n"
-                + " 4. Поиск заявки по Id\n"
-                + " 5. Поиск заявки по имени\n"
-                + " 6. Выйти из программы\n");
+        System.out.println(new StringJoiner(ln, ln, "")
+                .add("Меню: ")
+                .add(" 0. Добавление новой заявки")
+                .add(" 1. Показать все заявки")
+                .add(" 2. Редактирование заявки")
+                .add(" 3. Удаление заявки")
+                .add(" 4. Поиск заявки по Id")
+                .add(" 5. Поиск заявки по имени")
+                .add(" 6. Выйти из программы")
+        );
     }
 
     /**
