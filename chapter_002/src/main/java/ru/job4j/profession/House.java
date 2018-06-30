@@ -12,11 +12,17 @@ package ru.job4j.profession;
 public class House {
     private String adress; //поле содержит адрес дома
 
-    public void setAdress(String adress) {//метод инициалицирует поле адрес
+    /**
+     * Метод  инициалицирует поле адрес.
+     */
+    public void setAdress(String adress) {
         this.adress = adress;
     }
 
-    public String getAdress() {//метод возвращает адрес дома
+    /**
+     * Метод  возвращает адрес дома.
+     */
+    public String getAdress() {
         return adress;
     }
 }

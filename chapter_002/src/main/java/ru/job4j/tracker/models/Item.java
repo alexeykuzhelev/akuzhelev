@@ -16,13 +16,13 @@ public class Item {
     private long create; // Время создания заявки
     private String comment; // Комментарий к заявке
 
-    public Item(String name, String description, long create) {//Конструктор-1 класса Item
+    public Item(String name, String description, long create) { //Конструктор-1 класса Item
         this.name = name;
         this.description = description;
         this.create = create;
     }
 
-    public Item(String name, String description) {//Конструктор-2 класса Item
+    public Item(String name, String description) { //Конструктор-2 класса Item
         this.name = name;
         this.description = description;
     }
@@ -31,7 +31,7 @@ public class Item {
 
     /**
      * Геттеры и сеттеры
-     */
+     */	  
     public String getId() { //Возвращает идентификатор заявки
         return this.id;
     }

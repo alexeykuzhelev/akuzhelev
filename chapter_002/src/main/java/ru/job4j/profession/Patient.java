@@ -12,11 +12,17 @@ package ru.job4j.profession;
 public class Patient {
     private String name; //поле содержит имя пациента
 
-    public void setName(String name) {//метод инициалицирует поле имя
+    /**
+     * Метод  инициалицирует поле имя.
+     */
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName() {//метод возвращает имя пациента
+    /**
+     * Метод  возвращает имя пациента.
+     */
+    public String getName() {
         return name;
     }
 }
