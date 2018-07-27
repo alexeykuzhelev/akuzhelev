@@ -64,7 +64,7 @@ public class StartUITest {
     }
 
     @Test
-    //тест, проверяющий добавление новой заявки
+    //тест, проверяющий добавление новой заявки по имени
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         //создаём StubInput с последовательностью действий
         Input input = new StubInput(new String[]{"0", "test name", "test description", "6"});
@@ -74,8 +74,18 @@ public class StartUITest {
     }
 
     @Test
-    //тест, проверяющий редактирование заявки
-    public void whenUpdateThenTrackerHasUpdatedValue() {
+    //тест, проверяющий добавление новой заявки по описанию
+    public void whenUserAddItemThenTrackerHasNewItemWithSameDescription() {
+        //создаём StubInput с последовательностью действий
+        Input input = new StubInput(new String[]{"0", "test name", "test description", "6"});
+        new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
+        //проверяем, что нулевой элемент массива в трекере содержит описане, введённое при эмуляции
+        assertThat(tracker.findAll()[0].getDescription(), is("test description"));
+    }
+
+    @Test
+    //тест, проверяющий редактирование заявки по имени
+    public void whenUpdateThenTrackerHasUpdatedValue1() {
         Item item = tracker.add(new Item("test name", "test description")); //напрямую добавляем заявку
         //создаём StubInput с последовательностью действий для замены заявки
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
@@ -85,8 +95,19 @@ public class StartUITest {
     }
 
     @Test
-    //тест, проверяющий удаление заявки и сдвиг на ее место следующей заявки
-    public void whenDeleteThenTrackerHasNextValue() {
+    //тест, проверяющий редактирование заявки по описанию
+    public void whenUpdateThenTrackerHasUpdatedValue2() {
+        Item item = tracker.add(new Item("test name", "test description")); //напрямую добавляем заявку
+        //создаём StubInput с последовательностью действий для замены заявки
+        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
+        new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
+        //проверяем, что нулевой элемент массива в трекере содержит описане, введённое при эмуляции
+        assertThat(tracker.findById(item.getId()).getDescription(), is("заменили заявку"));
+    }
+
+    @Test
+    //тест, проверяющий по имени удаление заявки и сдвиг на ее место следующей заявки
+    public void whenDeleteThenTrackerHasNextValue1() {
         //напрямую добавляем заявки
         Item item1 = new Item("test1", "testDescription1");
         tracker.add(item1);
@@ -97,6 +118,21 @@ public class StartUITest {
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
         //проверяем, что нулевой элемент массива в трекере содержит имя следующей заявки
         assertThat(tracker.findAll()[0].getName(), is("test2"));
+    }
+
+    @Test
+    //тест, проверяющий по описанию удаление заявки и сдвиг на ее место следующей заявки
+    public void whenDeleteThenTrackerHasNextValue2() {
+        //напрямую добавляем заявки
+        Item item1 = new Item("test1", "testDescription1");
+        tracker.add(item1);
+        Item item2 = new Item("test2", "testDescription2");
+        tracker.add(item2);
+        //создаём StubInput с последовательностью действий для удаления первой заявки
+        Input input = new StubInput(new String[]{"3", item1.getId(), "6"});
+        new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
+        //проверяем, что нулевой элемент массива в трекере содержит описание следующей заявки
+        assertThat(tracker.findAll()[0].getDescription(), is("testDescription2"));
     }
 
     @Test
