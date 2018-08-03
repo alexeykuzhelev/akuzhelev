@@ -2,11 +2,13 @@ package ru.job4j.tracker.start;
 
 import ru.job4j.tracker.models.*;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 16.06.2018
+ * @since 03.08.2018
  */
 
 /**
@@ -16,12 +18,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
-
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
+    private final List<Item> items = new ArrayList<>();
 
     /**
      * Поле генерации id.
@@ -35,7 +32,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        items.add(item);
         return item;
     }
 
@@ -75,9 +72,9 @@ public class Tracker {
      */
     public void replace(String id, Item item) {
         item.setId(id);
-        for (int i = 0; i != this.position; i++) {
-            if (findById(id).equals(items[i])) {
-                items[i] = item;
+        for (int i = 0; i < items.size(); i++) {
+            if (findById(id).equals(items.get(i))) {
+                items.set(i, item);
                 break;
             }
         }
@@ -85,32 +82,23 @@ public class Tracker {
 
     /**
      * Метод delete должен удалить ячейку в массиве this.items. Для этого необходимо найти ячейку в массиве по id.
-     * Далее сместить все значения справа от удаляемого элемента - на одну ячейку влево с помощью
-     * System.arrayCopy().
      * @param id заявки 
      */
     public void delete(String id) {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                items[i] = null;
-                System.arraycopy(items, i + 1, items, i, items.length - i - 1);
-                items[items.length - 1] = null;
-                this.position--;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i) != null && items.get(i).getId().equals(id)) {
+                items.remove(i);
                 break;
             }
         }
     }
 
     /**
-     * Метод  findAll() возвращает копию массива this.items без null элементов.
-     * @return Item[]
+     * Метод  findAll() возвращает заполненные ячейки массива this.items.
+     * @return List<Item>
      */
-    public Item[] findAll() {
-        Item[] result = new Item[this.position];
-        for (int i = 0; i != this.position; i++) {
-            result[i] = this.items[i];
-        }
-        return result;
+    public List<Item> findAll() {
+        return items;
     }
 
     /**
@@ -118,18 +106,15 @@ public class Tracker {
      * с аргументом метода String key.
      * Элементы, у которых совпадает name, копирует в результирующий массив и возвращает его.
      * @param key;
-     * @return Item[]
+     * @return List<Item>
      */
-    public Item[] findByName(String key) {
-        int index = 0;
-        Item[] tmp = new Item[this.position];
-        for (int i = 0; i < this.position; i++) {
-            if (items[i].getName().equals(key)) {
-                tmp[index++] = items[i];
+    public List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>();
+        for (Item item : items) {
+            if (item.getName().contains(key)) {
+                result.add(item);
             }
         }
-        Item[] result = new Item[index];
-        System.arraycopy(tmp, 0, result, 0, index);
         return result;
     }
 }

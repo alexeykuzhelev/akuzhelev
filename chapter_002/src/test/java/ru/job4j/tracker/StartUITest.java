@@ -8,6 +8,7 @@ import java.io.PrintStream;
 import java.util.StringJoiner;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import java.util.*;
 
 import ru.job4j.tracker.models.*;
 import ru.job4j.tracker.start.*;
@@ -15,7 +16,7 @@ import ru.job4j.tracker.start.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 23.07.2018
+ * @since 03.08.2018
  */
 
 /**
@@ -31,15 +32,14 @@ public class StartUITest {
     //перевод на новую строку
     private final String ln = System.lineSeparator();
     //поле содержит меню
-    private final StringJoiner menu = new StringJoiner(ln, ln, "")
-            .add("Меню: ")
-            .add(" 0. Добавление новой заявки")
-            .add(" 1. Показать все заявки")
-            .add(" 2. Редактирование заявки")
-            .add(" 3. Удаление заявки")
-            .add(" 4. Поиск заявки по Id")
-            .add(" 5. Поиск заявки по имени")
-            .add(" 6. Выйти из программы");
+    private final StringJoiner menu = new StringJoiner(ln, "", ln)
+            .add("0. Adding new item")
+            .add("1. Show all items")
+            .add("2. Edit item")
+            .add("3. Delete item")
+            .add("4. Find item by Id")
+            .add("5. Find items by name")
+            .add("6. Exit Program");
 
     /**
      * Метод заменяет стандартный вывод в консоль на вывод в пямять.
@@ -67,20 +67,20 @@ public class StartUITest {
     //тест, проверяющий добавление новой заявки по имени
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[]{"0", "test name", "test description", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"0", "test name", "test description", "y"}));
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
         //проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции
-        assertThat(tracker.findAll()[0].getName(), is("test name"));
+        assertThat(tracker.findAll().get(0).getName(), is("test name"));
     }
 
     @Test
     //тест, проверяющий добавление новой заявки по описанию
     public void whenUserAddItemThenTrackerHasNewItemWithSameDescription() {
         //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[]{"0", "test name", "test description", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"0", "test name", "test description", "y"}));
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
         //проверяем, что нулевой элемент массива в трекере содержит описане, введённое при эмуляции
-        assertThat(tracker.findAll()[0].getDescription(), is("test description"));
+        assertThat(tracker.findAll().get(0).getDescription(), is("test description"));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValue1() {
         Item item = tracker.add(new Item("test name", "test description")); //напрямую добавляем заявку
         //создаём StubInput с последовательностью действий для замены заявки
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"2", item.getId(), "test replace", "заменили заявку", "y"}));
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
         //проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции
         assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
@@ -99,7 +99,7 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValue2() {
         Item item = tracker.add(new Item("test name", "test description")); //напрямую добавляем заявку
         //создаём StubInput с последовательностью действий для замены заявки
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"2", item.getId(), "test replace", "заменили заявку", "y"}));
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
         //проверяем, что нулевой элемент массива в трекере содержит описане, введённое при эмуляции
         assertThat(tracker.findById(item.getId()).getDescription(), is("заменили заявку"));
@@ -114,10 +114,10 @@ public class StartUITest {
         Item item2 = new Item("test2", "testDescription2");
         tracker.add(item2);
         //создаём StubInput с последовательностью действий для удаления первой заявки
-        Input input = new StubInput(new String[]{"3", item1.getId(), "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"3", item1.getId(), "y"}));
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
         //проверяем, что нулевой элемент массива в трекере содержит имя следующей заявки
-        assertThat(tracker.findAll()[0].getName(), is("test2"));
+        assertThat(tracker.findAll().get(0).getName(), is("test2"));
     }
 
     @Test
@@ -129,10 +129,10 @@ public class StartUITest {
         Item item2 = new Item("test2", "testDescription2");
         tracker.add(item2);
         //создаём StubInput с последовательностью действий для удаления первой заявки
-        Input input = new StubInput(new String[]{"3", item1.getId(), "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"3", item1.getId(), "y"}));
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
         //проверяем, что нулевой элемент массива в трекере содержит описание следующей заявки
-        assertThat(tracker.findAll()[0].getDescription(), is("testDescription2"));
+        assertThat(tracker.findAll().get(0).getDescription(), is("testDescription2"));
     }
 
     @Test
@@ -140,11 +140,11 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerFindItemByName() {
         Item item = tracker.add(new Item("test name", "test description")); //напрямую добавляем заявку
         //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[]{"5", "test name", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"5", "test name", "y"}));
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
-        Item[] result = tracker.findByName("test name"); //находим заявку по имени
+        List<Item> result = tracker.findByName("test name"); //находим заявку по имени
         //проверяем, что нулевой элемент массива в трекере содержит имя найденной заявки
-        assertThat(result[0].getName(), is("test name"));
+        assertThat(result.get(0).getName(), is("test name"));
     }
 
     @Test
@@ -152,7 +152,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerFindItemById() {
         Item item = tracker.add(new Item("test name", "test description")); //напрямую добавляем заявку
         //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"4", item.getId(), "y"}));
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
         Item result = tracker.findById(item.getId()); //находим заявку по id
         assertThat(result, is(item));
@@ -163,15 +163,14 @@ public class StartUITest {
     public void whenShowAllThenShowAllItems() {
         Item item = tracker.add(new Item("test name", "test description")); //напрямую добавляем заявку
         //создаём StubInput с последовательностью действий
-        Input input = new StubInput(new String[]{"1", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"1", "y"}));
         new StartUI(input, tracker).init(); //создаём StartUI и вызываем метод init()
         assertThat(
                 new String(this.out.toByteArray()),
                 is(
                         new StringBuilder()
                                 .append(menu)
-                                .append(ln)
-                                .append("------------ Отображение всех заявок --------------")
+                                .append("---------- Список существующих заявок. ----------")
                                 .append(ln)
                                 .append("Id заявки: ")
                                 .append(item.getId())
@@ -183,8 +182,6 @@ public class StartUITest {
                                 .append(item.getDescription())
                                 .append(ln)
                                 .append("-------------------------------------------")
-                                .append(ln)
-                                .append(menu)
                                 .append(ln)
                                 .toString()
                 )

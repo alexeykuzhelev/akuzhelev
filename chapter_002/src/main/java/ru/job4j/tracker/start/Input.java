@@ -1,9 +1,11 @@
 package ru.job4j.tracker.start;
 
+import java.util.*;
+
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 24.06.2018
+ * @since 03.08.2018
  */
 
 /**
@@ -16,4 +18,11 @@ public interface Input {
      * @return ответ пользователя.
      */
     String ask(String question);
+    /**
+     * Метод спросить пользователя.
+     * @param question вопрос пользователю.
+     * @param range массив со значениями ключа.
+     * @return ответ пользователя.
+     */
+    int ask(String question, List<Integer> range);
 }

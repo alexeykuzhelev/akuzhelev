@@ -3,8 +3,10 @@ package ru.job4j.tracker.start;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 30.06.2018
+ * @since 03.08.2018
  */
+
+import java.util.List;
 
 /**
  * Класс StubInput для тестирования ввода из консоли.
@@ -19,7 +21,7 @@ public class StubInput implements Input {
      * description - описание заявки
      * 6 - выйти из трекера.
      */	 
-    private final String[] value;
+    private List<String> value;
 
     /**
      * Поле считает количество вызовов метода ask.
@@ -31,9 +33,9 @@ public class StubInput implements Input {
      * Конструктор StubInput принимает массив строк.
      * @param value - массив ответов пользователя.
      */
-    public StubInput(final String[] value) {
+    public StubInput(List<String> value) {
         this.value = value;
-        this.position = 0;		
+        this.position = 0;
     }
 
     /**
@@ -47,6 +49,12 @@ public class StubInput implements Input {
      */
     @Override
     public String ask(String question) {
-        return this.value[this.position++];
+        return this.value.get(this.position++);
+    }
+
+    @Override
+    public int ask(String question, List<Integer> range) {
+        int key = Integer.valueOf(this.ask(question));
+        return key;
     }
 }

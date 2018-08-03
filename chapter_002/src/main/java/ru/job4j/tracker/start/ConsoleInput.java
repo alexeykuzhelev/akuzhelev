@@ -1,11 +1,11 @@
 package ru.job4j.tracker.start;
 
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 24.06.2018
+ * @since 03.08.2018
  */
 
 /**
@@ -18,10 +18,20 @@ public class ConsoleInput implements Input {
     /**
      * Метод спросить пользователя.
      * @param question вопрос пользователю.
-     * @return ответ пользователя.
+     * @return ответ пользователя (ключ).
      */
     public String ask(String question) {
         System.out.println(question);
         return scanner.nextLine();
+    }
+    /**
+     * Метод спросить пользователя.
+     * @param question вопрос пользователю.
+     * @param range массив со значениями ключа.
+     * @return ответ пользователя (ключ).
+     */
+    public int ask(String question, List<Integer> range) {
+        int key = Integer.valueOf(this.ask(question));
+        return key;
     }
 }
