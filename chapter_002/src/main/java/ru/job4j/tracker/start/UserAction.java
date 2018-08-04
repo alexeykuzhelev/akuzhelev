@@ -3,7 +3,7 @@ package ru.job4j.tracker.start;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 28.07.2018
+ * @since 04.08.2018
  */
 
 /**

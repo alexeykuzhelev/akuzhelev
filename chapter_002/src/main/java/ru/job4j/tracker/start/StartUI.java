@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 03.08.2018
+ * @since 04.08.2018
  */
 
 /**
