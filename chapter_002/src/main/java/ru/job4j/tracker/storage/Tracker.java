@@ -1,4 +1,4 @@
-package ru.job4j.tracker.start;
+package ru.job4j.tracker.storage;
 
 import ru.job4j.tracker.models.*;
 import java.util.Random;

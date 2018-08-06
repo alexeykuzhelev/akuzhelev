@@ -1,6 +1,9 @@
-package ru.job4j.tracker.start;
+package ru.job4j.tracker.actions;
 
 import ru.job4j.tracker.models.*;
+import ru.job4j.tracker.start.*;
+import ru.job4j.tracker.storage.*;
+import ru.job4j.tracker.input.*;
 import java.util.*;
 
 /**
@@ -43,15 +46,16 @@ public class MenuTracker {
 
 	/**
 	 * Метод заполняет (инициализирует) массив меню действий.
+	 * @param startUI объект класса StartUI
 	 */
-	public void fillActions() {
+	public void fillActions(StartUI startUI) {
 		this.actions.add(this.new AddItem(0, "Adding new item"));
 		this.actions.add(this.new ShowItems(1, "Show all items"));
 		this.actions.add(new MenuTracker.EditItem(2, "Edit item"));
 		this.actions.add(new MenuTracker.DeleteItem(3, "Delete item"));
 		this.actions.add(new FindItemById(4, "Find item by Id"));
 		this.actions.add(new FindItemsByName(5, "Find items by name"));
-		this.actions.add(new ExitProgram(6, "Exit Program"));
+		this.actions.add(new ExitProgram(6, "Exit Program", startUI));
 	}
 
 	/**
@@ -378,15 +382,18 @@ class FindItemsByName implements UserAction {
 class ExitProgram implements UserAction {
 	private final int EXIT; //константа, присваивающая ключ операции
 	private final String action; //поле строки с описанием действия
+	private final StartUI ui; //поле объекта класса StartUI
 
 	/**
 	 * Конструктор.
 	 * @param key ключ операции.
 	 * @param name описание действия.
+	 * @param ui объект класса StartUI.
 	 */
-	public ExitProgram(int key, String name) {
+	public ExitProgram(int key, String name, StartUI ui) {
 		this.EXIT = key;
 		this.action = name;
+		this.ui = ui;
 	}
 	/**
 	 * Метод возвращает ключ.
@@ -402,6 +409,7 @@ class ExitProgram implements UserAction {
 	@Override
 	public void execute(Input input, Tracker tracker) {
 		System.out.println("------------ Выход из программы --------------");
+		this.ui.stop();
 	}
 	/**
 	 * Метод возвращает описание действия.

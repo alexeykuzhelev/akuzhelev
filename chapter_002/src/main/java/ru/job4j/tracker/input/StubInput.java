@@ -1,4 +1,4 @@
-package ru.job4j.tracker.start;
+package ru.job4j.tracker.input;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)

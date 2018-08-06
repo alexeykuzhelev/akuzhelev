@@ -1,6 +1,8 @@
 package ru.job4j.tracker.start;
 
-import ru.job4j.tracker.models.*;
+import ru.job4j.tracker.input.*;
+import ru.job4j.tracker.storage.*;
+import ru.job4j.tracker.actions.*;
 import java.util.*;
 
 /**
@@ -25,6 +27,12 @@ public class StartUI {
      * Хранилище заявок.
      */
     private final Tracker tracker;
+	
+    /**
+     * Состояние выхода из программы.
+	 * Программа работает до тех пор, пока значение истинно.
+     */	
+	private boolean exit = true;
 
     /**
      * Конструтор инициализирующий поля.
@@ -42,7 +50,8 @@ public class StartUI {
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         List<Integer> range = new ArrayList<>(); //массив со значениями ключа
-        menu.fillActions(); //вызов метода, заполняющего массив меню действий
+		//вызов метода, заполняющего массив меню действий и передача ему объекта StartUI
+        menu.fillActions(this); 
         for (int i = 0; i < menu.getActionsLentgh(); i++) {
             range.add(i);
         }
@@ -50,11 +59,14 @@ public class StartUI {
             menu.show(); //показать меню
             int key = input.ask("select:", range);
             menu.select(key);
-            if (key == 6) {
-                break;
-            }
-        } while (!"y".equals(this.input.ask("Exit program?(y/n): ")));
+        } while (this.exit && !"y".equals(this.input.ask("Exit program?(y/n): ")));
     }
+    /**
+     * Метод приводит к выходу из программы.
+     */	
+	public void stop() {
+	this.exit = false;
+	}
 
     /**
      * Запускт программы.
