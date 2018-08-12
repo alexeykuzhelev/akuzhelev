@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 04.08.2018
+ * @since 12.08.2018
  */
 
 /**
@@ -49,15 +49,11 @@ public class StartUI {
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        List<Integer> range = new ArrayList<>(); //массив со значениями ключа
 		//вызов метода, заполняющего массив меню действий и передача ему объекта StartUI
-        menu.fillActions(this); 
-        for (int i = 0; i < menu.getActionsLentgh(); i++) {
-            range.add(i);
-        }
+        menu.fillActions(this);
         do {
             menu.show(); //показать меню
-            int key = input.ask("select:", range);
+            int key = input.ask("select:", menu.getMenuRange());
             menu.select(key);
         } while (this.exit && !"y".equals(this.input.ask("Exit program?(y/n): ")));
     }

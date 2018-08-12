@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 04.08.2018
+ * @since 12.08.2018
  */
 
 public class MenuTracker {
@@ -25,6 +25,8 @@ public class MenuTracker {
 	 * @param actions хранит ссылку на массив типа UserAction (действия пользователя).
 	 */
 	private List<UserAction> actions = new ArrayList<>();
+
+	private final String ln = System.lineSeparator(); //перевод на новую строку
 
 	/**
 	 * Конструктор.
@@ -56,6 +58,18 @@ public class MenuTracker {
 		this.actions.add(new FindItemById(4, "Find item by Id"));
 		this.actions.add(new FindItemsByName(5, "Find items by name"));
 		this.actions.add(new ExitProgram(6, "Exit Program", startUI));
+	}
+
+	/**
+	 * Метод заполняет (инициализирует) массив со значениями ключа.
+	 * @return массив со значениями ключа
+	 */
+	public List<Integer> getMenuRange() {
+		List<Integer> range = new ArrayList<>(); //массив со значениями ключа
+		for (int i = 0; i < this.getActionsLentgh(); i++) {
+			range.add(i);
+		}
+		return range;
 	}
 
 	/**
@@ -113,9 +127,7 @@ public class MenuTracker {
 			String desc = input.ask("Please, provide item description:");
 			Item item = new Item(name, desc);
 			tracker.add(item);
-			System.out.println("------------ New Item with Id : " + item.getId());
-			System.out.println("------------ New Item with Name : " + item.getName());
-			System.out.println("------------ New Item with Description : " + item.getDescription());
+			System.out.println(item.addNewItem());
 		}
 		/**
 		 * Метод возвращает описание действия.
@@ -156,12 +168,12 @@ public class MenuTracker {
 		 */
 		@Override
 		public void execute(Input input, Tracker tracker) {
+			StringBuilder sb = new StringBuilder();
 			System.out.println("---------- Список существующих заявок. ----------");
 			for (Item item : tracker.findAll()) {
-				System.out.println("Id заявки: " + item.getId() + ln
-						+ "Имя заявки: " + item.getName() + ln
-						+ "Описание заявки: " + item.getDescription() + ln
-						+ "-------------------------------------------");
+				sb.append(item.toString());
+				sb.append(ln);
+				System.out.println(item.toString());
 			}
 		}
 		/**
@@ -307,10 +319,8 @@ class FindItemById implements UserAction {
 		if (item == null) {
 			System.out.println("Заявка с таким id не найдена ");
 		} else {
-			System.out.println("------------ Заявка с Id: " + id + " найдена -----------" + ln
-					+ "Имя заявки: " + item.getName() + ln
-					+ "Описание заявки: " + item.getDescription() + ln
-					+ "-------------------------------------------");
+			System.out.println("------------ Заявка с таким Id найдена -----------");
+			System.out.println(item.toString());
 		}
 	}
 	/**
@@ -360,10 +370,8 @@ class FindItemsByName implements UserAction {
 		} else {
 			System.out.println("Найдены такие заявки: ");
 			for (Item item : items) {
-				System.out.println("------------ Заявка с именем: " + name + " найдена -----------" + ln
-						+ "Id заявки: " + item.getId() + ln
-						+ "Описание заявки: " + item.getDescription() + ln
-						+ "-------------------------------------------");
+				System.out.println("------------ Заявка с таким именем найдена -----------");
+						System.out.println(item.toString());
 			}
 		}
 	}
