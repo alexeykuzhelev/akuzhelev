@@ -3,12 +3,11 @@ package ru.job4j.tracker.start;
 import ru.job4j.tracker.input.*;
 import ru.job4j.tracker.storage.*;
 import ru.job4j.tracker.actions.*;
-import java.util.*;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 12.08.2018
+ * @since 13.08.2018
  */
 
 /**
@@ -69,6 +68,6 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }
