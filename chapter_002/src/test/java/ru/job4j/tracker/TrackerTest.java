@@ -11,53 +11,75 @@ import ru.job4j.tracker.storage.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 03.08.2018
+ * @since 19.08.2018
  */
 
+/**
+ * Class TrackerTest тестирует методы класса Tracker.
+ */ 
 public class TrackerTest {
+    /**
+     * Тест, проверяющий поиск заявки по id.
+     * tracker - создаем объект Tracker.
+     * item1, item2 - создаем первую и вторую заявки и добавляем их в трэкер.
+     * result - находим заявку по id.
+     */
     @Test
     public void whenFindItemById() {
-        //тест, проверяющий получение заявки по id
-        Tracker tracker = new Tracker();
-        Item item1 = new Item("test1", "testDescription1", 123L); //создаем первую заявку
-        tracker.add(item1); //добавляем заявку в трекер
-        Item item2 = new Item("test2", "testDescription2", 4567L); //создаем вторую заявку
-        tracker.add(item2); //добавляем заявку в трекер
-        Item result = tracker.findById(item1.getId()); //находим заявку по id
-        assertThat(result, is(item1));
-    }
-
-    @Test
-    public void whenReplaceNameThenReturnNewName() {
-        //тест, проверяющий, что заявка отредактирована
-        Tracker tracker = new Tracker();
-        Item previous = new Item("test1", "testDescription1", 123L);
-        //Добавляем заявку в трекер. Теперь в объект проинициализирован id.
-        tracker.add(previous);
-        //Создаем новую заявку.
-        Item next = new Item("test2", "testDescription2", 1234L);
-        //Обновляем заявку в трекере, проставляя старый id из previous.
-        tracker.replace(previous.getId(), next);
-        //Проверяем, что заявка на месте previous имеет новое имя test2.
-        assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
-    }
-
-    @Test
-    public void whenDeleteFirstItem() {
-        //тест, проверяющий удаление заявки и сдвиг на ее место следующей заявки
         Tracker tracker = new Tracker();
         Item item1 = new Item("test1", "testDescription1", 123L);
         tracker.add(item1);
         Item item2 = new Item("test2", "testDescription2", 4567L);
         tracker.add(item2);
-        tracker.delete(item1.getId()); //удаляем первую заявку
-        //Проверяем, что заявки с таким id больше нет (возвращает null).
+        Item result = tracker.findById(item1.getId());
+        assertThat(result, is(item1));
+    }
+
+    /**
+     * Тест, проверяющий, что заявка отредактирована.
+     * tracker - создаем объект Tracker.
+     * previous - создаем и добавляем первую заявку в трэкер, теперь в объект проинициализирован id.
+	 * next - создаем новую заявку.
+	 * replace - вызов метода, обновляющего заявку в трекере, проставляя старый id из previous. 
+     * Проверяем, что заявка на месте previous имеет новое имя test2.
+     */	
+    @Test
+    public void whenReplaceNameThenReturnNewName() {
+        Tracker tracker = new Tracker();
+        Item previous = new Item("test1", "testDescription1", 123L);
+        tracker.add(previous);
+        Item next = new Item("test2", "testDescription2", 1234L);
+        tracker.replace(previous.getId(), next);
+        assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
+    }
+
+    /**
+     * Тест, проверяющий удаление заявки и сдвиг на ее место следующей заявки.
+     * tracker - создаем объект Tracker.
+     * item1, item2 - создаем первую и вторую заявки и добавляем их в трэкер.
+     * delete - вызов метода, удаляющего первую заявку.
+	 * Проверяем, что заявки с таким id больше нет (возвращает null).
+     */
+    @Test
+    public void whenDeleteFirstItem() {
+        Tracker tracker = new Tracker();
+        Item item1 = new Item("test1", "testDescription1", 123L);
+        tracker.add(item1);
+        Item item2 = new Item("test2", "testDescription2", 4567L);
+        tracker.add(item2);
+        tracker.delete(item1.getId());
         assertNull(tracker.findById(item1.getId()));
     }
 
+    /**
+     * Тест, проверяющий создания нового массива заявок без null элементов.
+     * tracker - создаем объект Tracker.
+     * item1, item2 - создаем первую и вторую заявки и добавляем их в трэкер.
+     * findAll - вызов метода, возвращающего заполненные ячейки массива items.
+	 * Создаем новый массив ArrayList и добавляем в него заявки.
+     */	
     @Test
     public void findAllItem() {
-        //тест, проверяющий создания нового массива заявок без null элементов
         Tracker tracker = new Tracker();
         Item item1 = new Item("test1", "testDescription1", 123L);
         tracker.add(item1);
@@ -70,9 +92,15 @@ public class TrackerTest {
         assertThat(result, is(expected));
     }
 
+    /**
+     * Тест, проверяющий проверяющий поиск заявки по имени.
+     * tracker - создаем объект Tracker.
+     * item1, item2 - создаем первую и вторую заявки и добавляем их в трэкер.
+     * findByName - вызов метода, находящего заявку по имени и помещающего ее в массив result.
+	 * Создаем новый массив ArrayList и добавляем в него первую заявку.
+     */	
     @Test
     public void whenFindItemByName() {
-        //тест, проверяющий поиск заявки по имени
         Tracker tracker = new Tracker();
         Item item1 = new Item("test1", "testDescription1", 123L);
         tracker.add(item1);

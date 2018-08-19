@@ -18,18 +18,20 @@ public class ValidateInput extends ConsoleInput {
      * @param question вопрос пользователю.
      * @param range массив со значениями ключа.
      * @return ответ пользователя (ключ).
+	 * try - блок, в котором происходят исключительные ситуации.
+	 * catch - блоки обработки исключительных ситуаций.
      */
     @Override
     public int ask(String question, List<Integer> range) {
         boolean invalid = true;
         int value = -1;
         do {
-            try { //блок, в котором происходят исключительные ситуации
+            try {
                 value = super.ask(question, range);
                 invalid = false;
-            } catch (MenuOutException moe) { //блок обработки исключительной ситуации 1
+            } catch (MenuOutException moe) {
                 System.out.println("Please, select key from menu.");
-            } catch (NumberFormatException nfe) { //блок обработки исключительной ситуации 2
+            } catch (NumberFormatException nfe) {
                 System.out.println("Please, enter validate data again.");
             }
         } while (invalid);

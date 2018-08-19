@@ -13,8 +13,10 @@ import java.util.*;
  * Класс ConsoleInput используется для ввода пользовательских данных из консоли.
  */
 public class ConsoleInput implements Input {
-
-    private Scanner scanner = new Scanner(System.in); //объект класса Scanner
+    /**
+     * Объект класса Scanner.
+     */
+    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Метод спросить пользователя.
@@ -31,6 +33,7 @@ public class ConsoleInput implements Input {
      * @param question вопрос пользователю.
      * @param range массив со значениями ключа.
      * @return ответ пользователя (ключ).
+	 * @exception MenuOutException создаем необрабатываемое исключение.
      */
     @Override
     public int ask(String question, List<Integer> range) {
@@ -45,7 +48,7 @@ public class ConsoleInput implements Input {
         if (exist) {
             return key;
         } else {
-            throw new MenuOutException("Out of menu range"); //создаем необрабатываемое исключение
+            throw new MenuOutException("Out of menu range");
         }
     }
 }

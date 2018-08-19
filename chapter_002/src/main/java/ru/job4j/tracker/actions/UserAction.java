@@ -13,8 +13,10 @@ import ru.job4j.tracker.storage.*;
  * Interface UserAction описывает действие пользователя.
  */
 public interface UserAction {
-
-    String ln = System.lineSeparator(); //перевод на новую строку
+    /**
+     * Перевод на новую строку.
+     */
+    String ln = System.lineSeparator();
 
     /**
      * Метод возвращает ключ опции (идентификатор действия, которое делает пользователь).

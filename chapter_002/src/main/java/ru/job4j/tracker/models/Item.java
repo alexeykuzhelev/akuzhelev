@@ -3,90 +3,123 @@ package ru.job4j.tracker.models;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 12.08.2018
+ * @since 17.08.2018
  */
 
 /**
  * Class Item реализует поля и методы Заявки. 
  */
 public class Item {
-    private String id; // Идентификатор заявки
-    private String name; // Имя заявки
-    private String description; // Описание заявки
-    private long create; // Время создания заявки
-    private String comment; // Комментарий к заявке
-    private final String ln = System.lineSeparator(); //перевод на новую строку
+    /**
+     * Идентификатор заявки.
+     */	
+    private String id;
+    /**
+     * Имя заявки.
+     */	
+    private String name;
+    /**
+     * Описание заявки.
+     */		
+    private String description;
+    /**
+     * Время создания заявки.
+     */	
+    private long create;
+    /**
+     * Комментарий к заявке.
+     */	
+    private String comment;
+    /**
+     * Перевод на новую строку.
+     */		
+    private final String ln = System.lineSeparator();
 
-    public Item(String name, String description, long create) { //Конструктор-1 класса Item
+    /**
+     * Конструктор-1 класса Item.
+     */	
+    public Item(String name, String description, long create) {
         this.name = name;
         this.description = description;
         this.create = create;
     }
 
-    public Item(String name, String description) { //Конструктор-2 класса Item
+    /**
+     * Конструктор-2 класса Item.
+     */	
+    public Item(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public Item() { }  //дефолтный конструктор
+    /**
+     * Дефолтный конструктор.
+     */		
+    public Item() { }
 
     /**
      * Геттеры и сеттеры
-     */	  
-    public String getId() { //Возвращает идентификатор заявки
+     */
+	 
+	/**
+     * Метод возвращает идентификатор заявки.
+     */	 
+    public String getId() {
         return this.id;
     }
-
-    public void setId(String id) { //Устанавливает идентификатор заявки
+	/**
+     * Метод устанавливает идентификатор заявки.
+     */
+    public void setId(String id) {
         this.id = id;
     }
-
-    public String getName() { //Возвращает имя заявки
+	/**
+     * Метод возвращает имя заявки.
+     */
+    public String getName() {
         return this.name;
     }
-
-    public void setName(String name) { //Устанавливает имя заявки
+	/**
+     * Метод устанавливает имя заявки.
+     */
+    public void setName(String name) {
         this.name = name;
     }
-
-    public String getDescription() { //Возвращает описание заявки
+	/**
+     * Метод возвращает описание заявки.
+     */
+    public String getDescription() {
         return this.description;
     }
-
-    public void setDescription(String description) { //Устанавливает описание заявки
+	/**
+     * Метод устанавливает описание заявки.
+     */
+    public void setDescription(String description) {
         this.description = description;
     }
-
-    public long getCreate() { //Возвращает время заявки
+	/**
+     * Метод возвращает время заявки.
+     */
+    public long getCreate() {
         return this.create;
     }
-
-    public void setCreate(long create) { //Устанавливает время заявки
+	/**
+     * Метод устанавливает время заявки.
+     */
+    public void setCreate(long create) {
         this.create = create;
     }
-
-    public String getComment() { //Возвращает комментарии заявки
+	/**
+     * Метод возвращает комментарии заявки.
+     */
+    public String getComment() {
         return this.comment;
     }
-
-    public void setComment() { //Устанавливает комментарии заявки
-        this.comment = comment;
-    }
-
-    /**
-     * Метод для вывода сообщения о добавлении новой заявки.
-     * @return строковое представление объекта.
+	/**
+     * Метод устанавливает комментарии заявки.
      */
-    public String addNewItem() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(ln);
-        sb.append("------------ New Item with Id : " + this.getId());
-        sb.append(ln);
-        sb.append("------------ New Item with Name : " + this.getName());
-        sb.append(ln);
-        sb.append("------------ New Item with Description : " + this.getDescription());
-        sb.append(ln);
-        return sb.toString();
+    public void setComment() {
+        this.comment = comment;
     }
 
     /**

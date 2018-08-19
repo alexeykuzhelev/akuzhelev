@@ -9,9 +9,12 @@ import java.util.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 12.08.2018
+ * @since 18.08.2018
  */
 
+/**
+ * Класс MenuTracker реализует меню трэкера.
+ */
 public class MenuTracker {
 	/**
 	 * @param input хранит ссылку на объект ввода.
@@ -25,8 +28,6 @@ public class MenuTracker {
 	 * @param actions хранит ссылку на массив типа UserAction (действия пользователя).
 	 */
 	private List<UserAction> actions = new ArrayList<>();
-
-	private final String ln = System.lineSeparator(); //перевод на новую строку
 
 	/**
 	 * Конструктор.
@@ -62,10 +63,10 @@ public class MenuTracker {
 
 	/**
 	 * Метод заполняет (инициализирует) массив со значениями ключа.
-	 * @return массив со значениями ключа
+	 * @return List<Integer> - массив со значениями ключа
 	 */
 	public List<Integer> getMenuRange() {
-		List<Integer> range = new ArrayList<>(); //массив со значениями ключа
+		List<Integer> range = new ArrayList<>();
 		for (int i = 0; i < this.getActionsLentgh(); i++) {
 			range.add(i);
 		}
@@ -95,9 +96,14 @@ public class MenuTracker {
 	 * Не статический внутренний класс AddItem реализует добавление заявки в трэкер.
 	 */
 	private class AddItem implements UserAction {
-
-		private final int ADD; //константа, присваивающая ключ операции
-		private final String action; //поле строки с описанием действия
+		/**
+		 * Константа, присваивающая ключ операции.
+		 */
+		private final int ADD;
+		/**
+		 * Поле строки с описанием действия.
+		 */
+		private final String action;
 
 		/**
 		 * Конструктор.
@@ -127,7 +133,15 @@ public class MenuTracker {
 			String desc = input.ask("Please, provide item description:");
 			Item item = new Item(name, desc);
 			tracker.add(item);
-			System.out.println(item.addNewItem());
+			StringBuilder sb = new StringBuilder();
+			sb.append(ln);
+			sb.append("------------ New Item with Id : " + item.getId());
+			sb.append(ln);
+			sb.append("------------ New Item with Name : " + item.getName());
+			sb.append(ln);
+			sb.append("------------ New Item with Description : " + item.getDescription());
+			sb.append(ln);
+			System.out.println(sb.toString());
 		}
 		/**
 		 * Метод возвращает описание действия.
@@ -142,9 +156,14 @@ public class MenuTracker {
 	 * Не статический внутренний класс ShowItems реализует вывод на экран списка заявок.
 	 */
 	private class ShowItems implements UserAction {
-
-		private final int SHOW_ALL; //константа, присваивающая ключ операции
-		private final String action; //поле строки с описанием действия
+		/**
+		 * Константа, присваивающая ключ операции.
+		 */
+		private final int SHOW_ALL;
+		/**
+		 * Поле строки с описанием действия.
+		 */
+		private final String action;
 
 		/**
 		 * Конструктор.
@@ -189,9 +208,14 @@ public class MenuTracker {
 	 * Статический внутренний класс EditItem реализует редактирование заявки.	
 	 */
 	private static class EditItem implements UserAction {
-
-		private final int EDIT; //константа, присваивающая ключ операции
-		private final String action; //поле строки с описанием действия
+		/**
+		 * Константа, присваивающая ключ операции.
+		 */
+		private final int EDIT;
+		/**
+		 * Поле строки с описанием действия.
+		 */
+		private final String action;
 
 		/**
 		 * Конструктор.
@@ -212,12 +236,13 @@ public class MenuTracker {
 		/**
 		 * Метод редактирует заявку в хранилище.
 		 * @param input ввод пользователя, tracker - хранилище заявок.
+		 * findById - вызов метода, проверяющего, что такой item есть в трекере.
 		 */
 		@Override
 		public void execute(Input input, Tracker tracker) {
 			System.out.println("------------ Редактирование заявки --------------");
 			String id = input.ask("Введите id заявки, которую надо изменить: ");
-			Item item = tracker.findById(id); //проверка, что такой item есть в трекере
+			Item item = tracker.findById(id);
 			if (item != null) {
 				String newName = input.ask("Введите имя новой заявки: ");
 				String newDescription = input.ask("Введите описание новой заявки: ");
@@ -241,9 +266,14 @@ public class MenuTracker {
 	 * Статический внутренний класс DeleteItem реализует удаление заявки.	
 	 */
 	private static class DeleteItem implements UserAction {
-
-		private final int DELETE; //константа, присваивающая ключ операции
-		private final String action; //поле строки с описанием действия
+		/**
+		 * Константа, присваивающая ключ операции.
+		 */
+		private final int DELETE;
+		/**
+		 * Поле строки с описанием действия.
+		 */
+		private final String action;
 
 		/**
 		 * Конструктор.
@@ -257,6 +287,7 @@ public class MenuTracker {
 		/**
 		 * Метод возвращает ключ.
 		 * @return ключ.
+		 * findById - вызов метода, проверяющего, что такой item есть в трекере.
 		 */
 		public int key() {
 			return this.DELETE;
@@ -265,7 +296,7 @@ public class MenuTracker {
 		public void execute(Input input, Tracker tracker) {
 			System.out.println("------------ Удаление заявки --------------");
 			String id = input.ask("Введите id заявки, которую надо удалить: ");
-			Item item = tracker.findById(id); //проверка, что такой item есть в трекере
+			Item item = tracker.findById(id);
 			if (item != null) {
 				tracker.delete(id);
 				System.out.println("------------ Заявка с Id: " + id + " удалена -----------");
@@ -287,9 +318,14 @@ public class MenuTracker {
  * Внешний класс FindItemById реализует поиск заявки по id.	
  */
 class FindItemById implements UserAction {
-
-	private final int FIND_BY_ID; //константа, присваивающая ключ операции
-	private final String action; //поле строки с описанием действия
+	/**
+	 * Константа, присваивающая ключ операции.
+	 */
+	private final int FIND_BY_ID;
+	/**
+	 * Поле строки с описанием действия.
+	 */
+	private final String action;
 
 	/**
 	 * Конструктор.
@@ -336,9 +372,14 @@ class FindItemById implements UserAction {
  * Внешний класс FindItemsByName реализует поиск заявки по имени.	
  */
 class FindItemsByName implements UserAction {
-
-	private final int FIND_BY_NAME; //константа, присваивающая ключ операции
-	private final String action; //поле строки с описанием действия
+	/**
+	 * Константа, присваивающая ключ операции.
+	 */
+	private final int FIND_BY_NAME;
+	/**
+	 * Поле строки с описанием действия.
+	 */
+	private final String action;
 
 	/**
 	 * Конструктор.
@@ -371,7 +412,7 @@ class FindItemsByName implements UserAction {
 			System.out.println("Найдены такие заявки: ");
 			for (Item item : items) {
 				System.out.println("------------ Заявка с таким именем найдена -----------");
-						System.out.println(item.toString());
+				System.out.println(item.toString());
 			}
 		}
 	}
@@ -388,9 +429,18 @@ class FindItemsByName implements UserAction {
  * Внешний класс ExitProgram реализует выход из программы.	
  */
 class ExitProgram implements UserAction {
-	private final int EXIT; //константа, присваивающая ключ операции
-	private final String action; //поле строки с описанием действия
-	private final StartUI ui; //поле объекта класса StartUI
+	/**
+	 * Константа, присваивающая ключ операции.
+	 */
+	private final int EXIT;
+	/**
+	 * Поле строки с описанием действия.
+	 */
+	private final String action;
+	/**
+	 * Поле объекта класса StartUI.
+	 */
+	private final StartUI ui;
 
 	/**
 	 * Конструктор.

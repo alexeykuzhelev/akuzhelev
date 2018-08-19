@@ -42,7 +42,6 @@ public class Tracker {
      * @return Уникальный ключ.
      */
     private String generateId() {
-        //Метод генерации id.
         return String.valueOf(System.currentTimeMillis() + RN.nextInt(100));
     }
 
