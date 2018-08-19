@@ -6,13 +6,35 @@ import java.util.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 13.08.2018
+ * @since 19.08.2018
  */
 
 /**
  * Класс ValidateInput реализует валидацию данных, введенных из консоли.
  */
-public class ValidateInput extends ConsoleInput {
+public class ValidateInput implements Input {
+    /**
+     * Ссылка на объект, реализующий интерфейс Input.
+     */
+    private final Input input;
+
+    /**
+     * Конструктор, инициализирующий интерфейс Input.
+     */	
+    public ValidateInput(final Input input) {
+        this.input = input;
+    }
+
+    /**
+     * Метод спросить пользователя.
+     * @param question вопрос пользователю.
+     * @return ответ пользователя (ключ).
+     */
+    @Override
+    public String ask(String question) {
+        return this.input.ask(question);
+    }
+
     /**
      * Метод спросить пользователя.
      * @param question вопрос пользователю.
@@ -27,7 +49,7 @@ public class ValidateInput extends ConsoleInput {
         int value = -1;
         do {
             try {
-                value = super.ask(question, range);
+                value = this.input.ask(question, range);
                 invalid = false;
             } catch (MenuOutException moe) {
                 System.out.println("Please, select key from menu.");

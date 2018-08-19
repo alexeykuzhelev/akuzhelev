@@ -7,7 +7,7 @@ import ru.job4j.tracker.actions.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 13.08.2018
+ * @since 18.08.2018
  */
 
 /**
@@ -15,23 +15,19 @@ import ru.job4j.tracker.actions.*;
  * Класс должен обеспечить полноценную работу всего приложения (трекера).
  */
 public class StartUI {
-
-
     /**
      * Получение данных от пользователя.
      */
     private final Input input;
-
     /**
      * Хранилище заявок.
      */
     private final Tracker tracker;
-	
     /**
      * Состояние выхода из программы.
-	 * Программа работает до тех пор, пока значение истинно.
-     */	
-	private boolean exit = true;
+     * Программа работает до тех пор, пока значение истинно.
+     */
+    private boolean exit = true;
 
     /**
      * Конструтор инициализирующий поля.
@@ -45,29 +41,36 @@ public class StartUI {
 
     /**
      * Основой метод программы. Выполняет действия над заявкой.
+     * fillActions - вызов метода, заполняющего массив меню действий и передача ему объекта StartUI.
+     * show - вызов метода, показывающего меню.
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-		//вызов метода, заполняющего массив меню действий и передача ему объекта StartUI
         menu.fillActions(this);
         do {
-            menu.show(); //показать меню
+            menu.show();
             int key = input.ask("select:", menu.getMenuRange());
             menu.select(key);
         } while (this.exit && !"y".equals(this.input.ask("Exit program?(y/n): ")));
     }
+
     /**
      * Метод приводит к выходу из программы.
-     */	
-	public void stop() {
-	this.exit = false;
-	}
+     */
+    public void stop() {
+        this.exit = false;
+    }
 
     /**
      * Запускт программы.
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(), new Tracker()).init();
+        new StartUI(
+                new ValidateInput(
+                        new ConsoleInput()
+                ),
+                new Tracker()
+        ).init();
     }
 }
