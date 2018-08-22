@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 16.08.2018
+ * @since 22.08.2018
  */
 
 /**
@@ -28,7 +28,7 @@ public class StubInput implements Input {
      * Поле считает количество вызовов метода ask.
      * При каждом вызове надо передвинуть указатель на новое число.
      */
-    private int position;
+    private int position = 0;
 
     /**
      * Конструктор StubInput принимает массив строк.
@@ -36,7 +36,6 @@ public class StubInput implements Input {
      */
     public StubInput(List<String> value) {
         this.value = value;
-        this.position = 0;
     }
 
     /**
@@ -47,7 +46,7 @@ public class StubInput implements Input {
      * Как если бы мы симулировали поведение пользователя.
      * Для этого при каждом вызове метода ask мы увеличиваем счетчик и 
      * при следующем вызове он вернет нам новое значение.
-	 * @exception MenuOutException создаем необрабатываемое исключение.
+     * @exception MenuOutException создаем необрабатываемое исключение.
      */
     @Override
     public String ask(String question) {
@@ -64,10 +63,9 @@ public class StubInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
+        if (!exist) {
             throw new MenuOutException("Out of menu range");
         }
+        return key;
     }
 }

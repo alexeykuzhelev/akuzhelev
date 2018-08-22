@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 13.08.2018
+ * @since 22.08.2018
  */
 
 /**
@@ -33,7 +33,7 @@ public class ConsoleInput implements Input {
      * @param question вопрос пользователю.
      * @param range массив со значениями ключа.
      * @return ответ пользователя (ключ).
-	 * @exception MenuOutException создаем необрабатываемое исключение.
+     * @exception MenuOutException создаем необрабатываемое исключение.
      */
     @Override
     public int ask(String question, List<Integer> range) {
@@ -45,10 +45,9 @@ public class ConsoleInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
+        if (!exist) {
             throw new MenuOutException("Out of menu range");
         }
+        return key;
     }
 }
