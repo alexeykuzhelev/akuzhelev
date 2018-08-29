@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 18.08.2018
+ * @since 29.08.2018
  */
 
 /**
@@ -31,6 +31,7 @@ public class MenuTracker {
 
 	/**
 	 * Конструктор.
+	 *
 	 * @param input   объект типа Input, реализующего интерфэйс Input.
 	 * @param tracker объект типа Tracker.
 	 */
@@ -41,6 +42,7 @@ public class MenuTracker {
 
 	/**
 	 * Метод для получения длины массива меню.
+	 *
 	 * @return длину массива
 	 */
 	public int getActionsLentgh() {
@@ -49,20 +51,30 @@ public class MenuTracker {
 
 	/**
 	 * Метод заполняет (инициализирует) массив меню действий.
+	 *
 	 * @param startUI объект класса StartUI
 	 */
 	public void fillActions(StartUI startUI) {
 		this.actions.add(this.new AddItem(0, "Adding new item"));
 		this.actions.add(this.new ShowItems(1, "Show all items"));
 		this.actions.add(new MenuTracker.EditItem(2, "Edit item"));
-		this.actions.add(new MenuTracker.DeleteItem(3, "Delete item"));
-		this.actions.add(new FindItemById(4, "Find item by Id"));
-		this.actions.add(new FindItemsByName(5, "Find items by name"));
-		this.actions.add(new ExitProgram(6, "Exit Program", startUI));
+		this.actions.add(new FindItemById(3, "Find item by Id"));
+		this.actions.add(new FindItemsByName(4, "Find items by name"));
+		this.actions.add(new ExitProgram(5, "Exit Program", startUI));
+	}
+
+	/**
+	 * Метод добавляет в массив меню действий новое действие.
+	 *
+	 * @param action добавляемое действие.
+	 */
+	public void addAction(BaseAction action) {
+		this.actions.add(action);
 	}
 
 	/**
 	 * Метод заполняет (инициализирует) массив со значениями ключа.
+	 *
 	 * @return List<Integer> - массив со значениями ключа
 	 */
 	public List<Integer> getMenuRange() {
@@ -75,6 +87,7 @@ public class MenuTracker {
 
 	/**
 	 * Метод в зависимости от указанного ключа, выполняет соотвествующие действие.
+	 *
 	 * @param key ключ операции (идентификатор действия).
 	 */
 	public void select(int key) {
@@ -95,35 +108,21 @@ public class MenuTracker {
 	/**
 	 * Не статический внутренний класс AddItem реализует добавление заявки в трэкер.
 	 */
-	private class AddItem implements UserAction {
-		/**
-		 * Константа, присваивающая ключ операции.
-		 */
-		private final int ADD;
-		/**
-		 * Поле строки с описанием действия.
-		 */
-		private final String action;
-
+	private class AddItem extends BaseAction {
 		/**
 		 * Конструктор.
-		 * @param key ключ операции.
+		 *
+		 * @param key  ключ операции.
 		 * @param name описание действия.
 		 */
 		public AddItem(int key, String name) {
-			this.ADD = key;
-			this.action = name;
+			super(key, name);
 		}
-		/**
-		 * Метод возвращает ключ.
-		 * @return ключ.
-		 */
-		public int key() {
-			return this.ADD;
-		}
+
 		/**
 		 * Метод добавляет заявку.
-		 * @param input ввод пользователя.
+		 *
+		 * @param input   ввод пользователя.
 		 * @param tracker - хранилище заявок.
 		 */
 		@Override
@@ -143,46 +142,25 @@ public class MenuTracker {
 			sb.append(ln);
 			System.out.println(sb.toString());
 		}
-		/**
-		 * Метод возвращает описание действия.
-		 */
-		@Override
-		public String info() {
-			return String.format("%s. %s", this.key(), this.action);
-		}
 	}
 
 	/**
 	 * Не статический внутренний класс ShowItems реализует вывод на экран списка заявок.
 	 */
-	private class ShowItems implements UserAction {
-		/**
-		 * Константа, присваивающая ключ операции.
-		 */
-		private final int SHOW_ALL;
-		/**
-		 * Поле строки с описанием действия.
-		 */
-		private final String action;
-
+	private class ShowItems extends BaseAction {
 		/**
 		 * Конструктор.
-		 * @param key ключ операции.
+		 *
+		 * @param key  ключ операции.
 		 * @param name описание действия.
 		 */
 		public ShowItems(int key, String name) {
-			this.SHOW_ALL = key;
-			this.action = name;
+			super(key, name);
 		}
-		/**
-		 * Метод возвращает ключ.
-		 * @return ключ.
-		 */
-		public int key() {
-			return this.SHOW_ALL;
-		}
+
 		/**
 		 * Метод показывает все заявки в хранилище.
+		 *
 		 * @param input ввод пользователя, tracker - хранилище заявок.
 		 */
 		@Override
@@ -195,48 +173,27 @@ public class MenuTracker {
 				System.out.println(item.toString());
 			}
 		}
-		/**
-		 * Метод возвращает описание действия.
-		 */
-		@Override
-		public String info() {
-			return String.format("%s. %s", this.key(), this.action);
-		}
 	}
 
 	/**
-	 * Статический внутренний класс EditItem реализует редактирование заявки.	
+	 * Статический внутренний класс EditItem реализует редактирование заявки.
 	 */
-	private static class EditItem implements UserAction {
-		/**
-		 * Константа, присваивающая ключ операции.
-		 */
-		private final int EDIT;
-		/**
-		 * Поле строки с описанием действия.
-		 */
-		private final String action;
-
+	private static class EditItem extends BaseAction {
 		/**
 		 * Конструктор.
-		 * @param key ключ операции.
+		 *
+		 * @param key  ключ операции.
 		 * @param name описание действия.
 		 */
 		public EditItem(int key, String name) {
-			this.EDIT = key;
-			this.action = name;
+			super(key, name);
 		}
-		/**
-		 * Метод возвращает ключ.
-		 * @return ключ.
-		 */
-		public int key() {
-			return this.EDIT;
-		}
+
 		/**
 		 * Метод редактирует заявку в хранилище.
+		 *
 		 * @param input ввод пользователя, tracker - хранилище заявок.
-		 * findById - вызов метода, проверяющего, что такой item есть в трекере.
+		 *              findById - вызов метода, проверяющего, что такой item есть в трекере.
 		 */
 		@Override
 		public void execute(Input input, Tracker tracker) {
@@ -253,96 +210,22 @@ public class MenuTracker {
 				System.out.println("Заявка не найдена, введите другой Id");
 			}
 		}
-		/**
-		 * Метод возвращает описание действия.
-		 */
-		@Override
-		public String info() {
-			return String.format("%s. %s", this.key(), this.action);
-		}
-	}
-
-	/**
-	 * Статический внутренний класс DeleteItem реализует удаление заявки.	
-	 */
-	private static class DeleteItem implements UserAction {
-		/**
-		 * Константа, присваивающая ключ операции.
-		 */
-		private final int DELETE;
-		/**
-		 * Поле строки с описанием действия.
-		 */
-		private final String action;
-
-		/**
-		 * Конструктор.
-		 * @param key ключ операции.
-		 * @param name описание действия.
-		 */
-		public DeleteItem(int key, String name) {
-			this.DELETE = key;
-			this.action = name;
-		}
-		/**
-		 * Метод возвращает ключ.
-		 * @return ключ.
-		 * findById - вызов метода, проверяющего, что такой item есть в трекере.
-		 */
-		public int key() {
-			return this.DELETE;
-		}
-		@Override
-		public void execute(Input input, Tracker tracker) {
-			System.out.println("------------ Удаление заявки --------------");
-			String id = input.ask("Введите id заявки, которую надо удалить: ");
-			Item item = tracker.findById(id);
-			if (item != null) {
-				tracker.delete(id);
-				System.out.println("------------ Заявка с Id: " + id + " удалена -----------");
-			} else {
-				System.out.println("Заявка не найдена, введите другой Id");
-			}
-		}
-		/**
-		 * Метод возвращает описание действия.
-		 */
-		@Override
-		public String info() {
-			return String.format("%s. %s", this.key(), this.action);
-		}
 	}
 }
 
 /**
- * Внешний класс FindItemById реализует поиск заявки по id.	
+ * Внешний класс FindItemById реализует поиск заявки по id.
  */
-class FindItemById implements UserAction {
-	/**
-	 * Константа, присваивающая ключ операции.
-	 */
-	private final int FIND_BY_ID;
-	/**
-	 * Поле строки с описанием действия.
-	 */
-	private final String action;
-
+class FindItemById extends BaseAction {
 	/**
 	 * Конструктор.
 	 * @param key ключ операции.
 	 * @param name описание действия.
 	 */
 	public FindItemById(int key, String name) {
-		this.FIND_BY_ID = key;
-		this.action = name;
+		super(key, name);
 	}
-	/**
-	 * Метод возвращает ключ.
-	 * @return ключ.
-	 */
-	public int key() {
-		return this.FIND_BY_ID;
-	}
+
 	/**
 	 * Метод поиска заявки в хранилище по id.
 	 * @param input ввод пользователя, tracker - хранилище заявок.
@@ -359,44 +242,21 @@ class FindItemById implements UserAction {
 			System.out.println(item.toString());
 		}
 	}
-	/**
-	 * Метод возвращает описание действия.
-	 */
-	@Override
-	public String info() {
-		return String.format("%s. %s", this.key(), this.action);
-	}
 }
 
 /**
- * Внешний класс FindItemsByName реализует поиск заявки по имени.	
+ * Внешний класс FindItemsByName реализует поиск заявки по имени.
  */
-class FindItemsByName implements UserAction {
-	/**
-	 * Константа, присваивающая ключ операции.
-	 */
-	private final int FIND_BY_NAME;
-	/**
-	 * Поле строки с описанием действия.
-	 */
-	private final String action;
-
+class FindItemsByName extends BaseAction {
 	/**
 	 * Конструктор.
 	 * @param key ключ операции.
 	 * @param name описание действия.
 	 */
 	public FindItemsByName(int key, String name) {
-		this.FIND_BY_NAME = key;
-		this.action = name;
+		super(key, name);
 	}
-	/**
-	 * Метод возвращает ключ.
-	 * @return ключ.
-	 */
-	public int key() {
-		return this.FIND_BY_NAME;
-	}
+
 	/**
 	 * Метод поиска заявки в хранилище по имени.
 	 * @param input ввод пользователя, tracker - хранилище заявок.
@@ -416,27 +276,12 @@ class FindItemsByName implements UserAction {
 			}
 		}
 	}
-	/**
-	 * Метод возвращает описание действия.
-	 */
-	@Override
-	public String info() {
-		return String.format("%s. %s", this.key(), this.action);
-	}
 }
 
 /**
- * Внешний класс ExitProgram реализует выход из программы.	
+ * Внешний класс ExitProgram реализует выход из программы.
  */
-class ExitProgram implements UserAction {
-	/**
-	 * Константа, присваивающая ключ операции.
-	 */
-	private final int EXIT;
-	/**
-	 * Поле строки с описанием действия.
-	 */
-	private final String action;
+class ExitProgram extends BaseAction {
 	/**
 	 * Поле объекта класса StartUI.
 	 */
@@ -444,24 +289,19 @@ class ExitProgram implements UserAction {
 
 	/**
 	 * Конструктор.
-	 * @param key ключ операции.
+	 *
+	 * @param key  ключ операции.
 	 * @param name описание действия.
-	 * @param ui объект класса StartUI.
+	 * @param ui   объект класса StartUI.
 	 */
 	public ExitProgram(int key, String name, StartUI ui) {
-		this.EXIT = key;
-		this.action = name;
+		super(key, name);
 		this.ui = ui;
 	}
-	/**
-	 * Метод возвращает ключ.
-	 * @return ключ.
-	 */
-	public int key() {
-		return this.EXIT;
-	}
+
 	/**
 	 * Метод завершения цикла и выхода из программы.
+	 *
 	 * @param input ввод пользователя, tracker - хранилище заявок.
 	 */
 	@Override
@@ -469,11 +309,5 @@ class ExitProgram implements UserAction {
 		System.out.println("------------ Выход из программы --------------");
 		this.ui.stop();
 	}
-	/**
-	 * Метод возвращает описание действия.
-	 */
-	@Override
-	public String info() {
-		return String.format("%s. %s", this.key(), this.action);
-	}
 }
+

@@ -20,7 +20,7 @@ import ru.job4j.tracker.input.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 19.08.2018
+ * @since 29.08.2018
  */
 
 /**
@@ -42,10 +42,10 @@ public class StartUITest {
             .add("0. Adding new item")
             .add("1. Show all items")
             .add("2. Edit item")
-            .add("3. Delete item")
-            .add("4. Find item by Id")
-            .add("5. Find items by name")
-            .add("6. Exit Program");
+            .add("3. Find item by Id")
+            .add("4. Find items by name")
+            .add("5. Exit Program")
+            .add("6. Delete item");
 
     /**
      * Метод заменяет стандартный вывод в консоль на вывод в пямять.
@@ -147,7 +147,7 @@ public class StartUITest {
         tracker.add(item1);
         Item item2 = new Item("test2", "testDescription2");
         tracker.add(item2);
-        Input input = new StubInput(Arrays.asList("3", item1.getId(), "y"));
+        Input input = new StubInput(Arrays.asList("6", item1.getId(), "y"));
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll().get(0).getName(), is("test2"));
     }
@@ -167,7 +167,7 @@ public class StartUITest {
         tracker.add(item1);
         Item item2 = new Item("test2", "testDescription2");
         tracker.add(item2);
-        Input input = new StubInput(Arrays.asList("3", item1.getId(), "y"));
+        Input input = new StubInput(Arrays.asList("6", item1.getId(), "y"));
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll().get(0).getDescription(), is("testDescription2"));
     }
@@ -185,7 +185,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerFindItemByName() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "test description"));
-        Input input = new StubInput(Arrays.asList("5", "test name", "y"));
+        Input input = new StubInput(Arrays.asList("4", "test name", "y"));
         new StartUI(input, tracker).init();
         List<Item> result = tracker.findByName("test name");
         assertThat(result.get(0).getName(), is("test name"));
@@ -203,7 +203,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerFindItemById() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "test description"));
-        Input input = new StubInput(Arrays.asList("4", item.getId(), "y"));
+        Input input = new StubInput(Arrays.asList("3", item.getId(), "y"));
         new StartUI(input, tracker).init();
         Item result = tracker.findById(item.getId());
         assertThat(result, is(item));

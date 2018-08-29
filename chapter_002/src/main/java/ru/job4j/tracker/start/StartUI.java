@@ -3,11 +3,12 @@ package ru.job4j.tracker.start;
 import ru.job4j.tracker.input.*;
 import ru.job4j.tracker.storage.*;
 import ru.job4j.tracker.actions.*;
+import ru.job4j.tracker.models.*;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 18.08.2018
+ * @since 29.08.2018
  */
 
 /**
@@ -43,10 +44,31 @@ public class StartUI {
      * Основой метод программы. Выполняет действия над заявкой.
      * fillActions - вызов метода, заполняющего массив меню действий и передача ему объекта StartUI.
      * show - вызов метода, показывающего меню.
+     * deleteAction - создаем объект анонимного класса для добавления нового действия (удаления заявки).
+     * addAction - вызов метода, добавляющего новое действие.
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions(this);
+        BaseAction deleteAction = new BaseAction(6, "Delete item") {
+            /**
+             * Метод удаляет заявку из хранилища.
+             * @param input ввод пользователя, tracker - хранилище заявок.
+             */
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                System.out.println("------------ Удаление заявки --------------");
+                String id = input.ask("Введите id заявки, которую надо удалить: ");
+                Item item = tracker.findById(id);
+                if (item != null) {
+                    tracker.delete(id);
+                    System.out.println("------------ Заявка с Id: " + id + " удалена -----------");
+                } else {
+                    System.out.println("Заявка не найдена, введите другой Id");
+                }
+            }
+        };
+        menu.addAction(deleteAction);
         do {
             menu.show();
             int key = input.ask("select:", menu.getMenuRange());
