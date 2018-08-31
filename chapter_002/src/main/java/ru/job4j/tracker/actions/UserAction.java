@@ -6,7 +6,7 @@ import ru.job4j.tracker.storage.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 04.08.2018
+ * @since 31.08.2018
  */
 
 /**
@@ -16,7 +16,7 @@ public interface UserAction {
     /**
      * Перевод на новую строку.
      */
-    String ln = System.lineSeparator();
+    String LN = System.lineSeparator();
 
     /**
      * Метод возвращает ключ опции (идентификатор действия, которое делает пользователь).

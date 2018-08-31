@@ -5,7 +5,7 @@ import ru.job4j.tracker.start.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 29.08.2018
+ * @since 31.08.2018
  */
 
 /**
@@ -44,6 +44,6 @@ public abstract class BaseAction implements UserAction {
      * @return строка, состоящая из номера и названия пункта меню.
      */
     public String info() {
-        return String.format("%s. %s", this.key(), this.name);
+        return String.format("%d. %s", this.key(), this.name);
     }
 }

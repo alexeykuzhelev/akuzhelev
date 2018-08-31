@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 29.08.2018
+ * @since 31.08.2018
  */
 
 /**
@@ -133,13 +133,13 @@ public class MenuTracker {
 			Item item = new Item(name, desc);
 			tracker.add(item);
 			StringBuilder sb = new StringBuilder();
-			sb.append(ln);
+			sb.append(LN);
 			sb.append("------------ New Item with Id : " + item.getId());
-			sb.append(ln);
+			sb.append(LN);
 			sb.append("------------ New Item with Name : " + item.getName());
-			sb.append(ln);
+			sb.append(LN);
 			sb.append("------------ New Item with Description : " + item.getDescription());
-			sb.append(ln);
+			sb.append(LN);
 			System.out.println(sb.toString());
 		}
 	}
@@ -169,7 +169,7 @@ public class MenuTracker {
 			System.out.println("---------- Список существующих заявок. ----------");
 			for (Item item : tracker.findAll()) {
 				sb.append(item.toString());
-				sb.append(ln);
+				sb.append(LN);
 				System.out.println(item.toString());
 			}
 		}
@@ -310,4 +310,3 @@ class ExitProgram extends BaseAction {
 		this.ui.stop();
 	}
 }
-

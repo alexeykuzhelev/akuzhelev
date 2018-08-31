@@ -8,7 +8,6 @@ import java.io.PrintStream;
 import java.util.StringJoiner;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static ru.job4j.tracker.actions.UserAction.ln;
 
 import java.util.*;
 
@@ -20,13 +19,17 @@ import ru.job4j.tracker.input.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 29.08.2018
+ * @since 31.08.2018
  */
 
 /**
  * Класс StartUITest содержит JUnit тесты для для тестирования ввода из консоли.
  */
 public class StartUITest {
+    /**
+     * Перевод на новую строку.
+     */
+    private final String ln = System.lineSeparator();
     /**
      * Поле содержит дефолтный вывод в консоль.
      */
