@@ -3,12 +3,10 @@ package ru.job4j.chess;
 import ru.job4j.chess.figures.*;
 import ru.job4j.chess.exceptions.*;
 
-import static java.lang.Math.abs;
-
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 20.09.2018
+ * @since 28.09.2018
  */
 
 /**
@@ -44,33 +42,25 @@ public class Board {
      * @param source исходная клетка на доске, отсюда ходим.
      * @param dest конечная клетка доски, куда ходим.
      * @return true - ход выполнен, false - ход не выполнен.
-     * FigureNotFoundException выбросить исключение, когда в поле source нет фигуры для хода.
-     * OccupiedWayException выбросить исключение, когда на пути фигуры стоит другая фигура.
+     * @throws FigureNotFoundException выбросить исключение, когда в поле source нет фигуры для хода.
+     * @throws ImpossibleMoveException выбросить исключение, когда фигура не может ходить по такому пути.
+     * @throws OccupiedWayException выбросить исключение, когда на пути фигуры стоит другая фигура.
      */
-    public boolean move(Cell source, Cell dest) {
-        if (source.equals(dest)) {
-            return false;
-        } else {
-            try {
-                int index = this.findIndex(source);
-                if (index == -1) {
-                    throw new FigureNotFoundException("В исходной клетке нет фигуры");
+    public boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
+        int index = this.findIndex(source);
+        if (index == -1) {
+            throw new FigureNotFoundException("В исходной клетке нет фигуры");
+        }
+        Cell[] steps = this.figures[index].way(source, dest);
+        for (Cell step : steps) {
+            for (int i = 0; i < this.position; i++) {
+                if (figures[i].occupied(step)) {
+                    throw new OccupiedWayException("На пути стоит другая фигура");
                 }
-                Cell[] steps = this.figures[index].way(source, dest);
-                for (Cell step : steps) {
-                    for (int i = 0; i < this.position; i++) {
-                        if (figures[i].occupied(step)) {
-                            throw new OccupiedWayException("На пути стоит другая фигура");
-                        }
-                    }
-                }
-                figures[index] = figures[index].copy(dest);
-                return true;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                return false;
             }
         }
+        figures[index] = figures[index].copy(dest);
+        return true;
     }
 
     /**

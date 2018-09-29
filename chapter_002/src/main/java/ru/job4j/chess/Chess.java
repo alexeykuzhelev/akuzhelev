@@ -3,7 +3,7 @@ package ru.job4j.chess;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 20.09.2018
+ * @since 28.09.2018
  */
 
 import javafx.application.Application;
@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import ru.job4j.chess.figures.*;
 import ru.job4j.chess.figures.black.*;
 import ru.job4j.chess.figures.white.*;
+import ru.job4j.chess.exceptions.*;
 
 public class Chess extends Application {
     private static final String JOB4J = "Шахматы на www.job4j.ru";
@@ -65,10 +66,13 @@ public class Chess extends Application {
         );
         rect.setOnMouseReleased(
                 event -> {
-                    if (logic.move(this.findIndex(momento.getX(), momento.getY()), this.findIndex(event.getX(), event.getY()))) {
-                        rect.setX(((int) event.getX() / 40) * 40 + 5);
-                        rect.setY(((int) event.getY() / 40) * 40 + 5);
-                    } else {
+                    try {
+                        if (logic.move(this.findIndex(momento.getX(), momento.getY()), this.findIndex(event.getX(), event.getY()))) {
+                            rect.setX(((int) event.getX() / 40) * 40 + 5);
+                            rect.setY(((int) event.getY() / 40) * 40 + 5);
+                        }
+                    } catch (ImpossibleMoveException | OccupiedWayException | FigureNotFoundException e) {
+                        System.out.println(e.getMessage());
                         rect.setX(((int) momento.getX() / 40) * 40 + 5);
                         rect.setY(((int) momento.getY() / 40) * 40 + 5);
                     }
