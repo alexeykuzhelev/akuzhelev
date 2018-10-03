@@ -7,7 +7,7 @@ import ru.job4j.chess.exceptions.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 28.09.2018
+ * @since 03.09.2018
  */
 
 /**
@@ -53,16 +53,16 @@ public class BishopBlack extends Figure {
         int deltaY = Integer.compare(y2, y1);
         int moveX = Math.abs(x1 - x2);
         int moveY = Math.abs(y1 - y2);
-        if (!(moveX != moveY || (x2 > 7 || y2 > 7) || (x2 < 0 || y2 < 0))) {
-            Cell[] steps = new Cell[moveX];
-            for (int i = 0; i < moveX; i++) {
-                x1 += deltaX;
-                y1 += deltaY;
-                steps[i] = Cell.findCell(x1, y1);
-            }
-            return steps;
+        if (moveX != moveY || (x2 > 7 || y2 > 7) || (x2 < 0 || y2 < 0)) {
+            throw new ImpossibleMoveException("Слон не может так ходить");		
         }
-        throw new ImpossibleMoveException("Слон не может так ходить");
+		Cell[] steps = new Cell[moveX];
+		for (int i = 0; i < moveX; i++) {
+			x1 += deltaX;
+			y1 += deltaY;
+			steps[i] = Cell.findCell(x1, y1);
+		}
+		return steps;
     }
 
     /**

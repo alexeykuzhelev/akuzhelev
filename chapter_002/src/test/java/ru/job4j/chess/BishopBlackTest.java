@@ -12,7 +12,7 @@ import static ru.job4j.chess.figures.Cell.*;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 28.09.2018
+ * @since 03.10.2018
  */
 
 /**
@@ -23,37 +23,23 @@ public class BishopBlackTest {
      * Тест, проверяющий невозможность хода Слона, если на его пути стоит другая фигура.
      * Выбрасывается исключение OccupiedWayException, если ход невозможен.
      */
-    @Test
+    @Test (expected = OccupiedWayException.class)
     public void whenMoveBishopThroughPawnWhenException() {
         Board board = new Board();
-        boolean result = false;
         board.add(new PawnBlack(E7));
         board.add(new BishopBlack(F8));
-        try {
-            board.move(F8, B4);
-        } catch (OccupiedWayException owe) {
-            System.out.println("Слон не может ходить через фигуру");
-            result = true;
-        }
-        assertTrue(result);
+		board.move(F8, B4);
     }
 
     /**
      * Тест, проверяющий неправильность хода Слона без других фигур на его пути.
      * Выбрасывается исключение ImpossibleMoveException, если Слон не может так ходить.
      */
-    @Test
+    @Test (expected = ImpossibleMoveException.class)
     public void whenMoveBishopVerticalFreeWayWhenException() {
         Board board = new Board();
-        boolean result = false;
         board.add(new BishopBlack(F8));
-        try {
-            board.move(F8, F6);
-        } catch (ImpossibleMoveException ime) {
-            System.out.println("Слон не может так ходить");
-            result = true;
-        }
-        assertTrue(result);
+		board.move(F8, F6);
     }
 
     /**
@@ -71,18 +57,11 @@ public class BishopBlackTest {
      * Тест, проверяющий, что в исходной клетке нет фигуры.
      * Выбрасывается исключение FigureNotFoundException.
      */
-    @Test
+    @Test (expected = FigureNotFoundException.class)
     public void whenMoveOfEmptySourceThenException() {
         Board board = new Board();
-        boolean result = false;
         board.add(new PawnBlack(E7));
-        try {
-            board.move(F8, D6);
-        } catch (FigureNotFoundException fnfe) {
-            System.out.println("В исходной клетке нет фигуры");
-            result = true;
-        }
-        assertTrue(result);
+		board.move(F8, D6);
     }
 
     /**
@@ -100,7 +79,7 @@ public class BishopBlackTest {
      * Тест на полный путь, проверяющий невозможность хода Слона, если на его пути стоит другая фигура.
      * Выбрасывается исключение OccupiedWayException, если ход невозможен.
      */
-    @Test
+    @Test (expected = OccupiedWayException.class)
     public void whenMoveBishopFullWayThroughPawnWhenException() {
         BishopBlack bishop = new BishopBlack(A1);
         Board board = new Board();
@@ -108,49 +87,43 @@ public class BishopBlackTest {
         board.add(new BishopBlack(A1));
         Cell[] result = bishop.way(bishop.position(), H8);
         Cell[] expected = {B2, C3, D4, E5, F6, G7, H8};
-        try {
-            board.move(bishop.position(), H8);
-        } catch (OccupiedWayException owe) {
+        if (!(result.equals(expected))) {
             System.out.println("Слон не может ходить через фигуру");
+            board.move(bishop.position(), H8);
         }
-        assertNotEquals(result, expected);
     }
 
     /**
      * Тест на полный путь, проверяющий неправильность хода Слона без других фигур на его пути.
      * Выбрасывается исключение ImpossibleMoveException, если Слон не может так ходить.
      */
-    @Test
+    @Test (expected = ImpossibleMoveException.class)
     public void whenMoveBishopFullWayVerticalFreeWayWhenException() {
         BishopBlack bishop = new BishopBlack(A1);
         Board board = new Board();
         board.add(new BishopBlack(A1));
         Cell[] result = bishop.way(bishop.position(), H8);
         Cell[] expected = {B2, C3, D4, E5, F6, G7, H8};
-        try {
-            board.move(A1, A3);
-        } catch (ImpossibleMoveException ime) {
+        if (!(result.equals(expected))) {
             System.out.println("Слон не может так ходить");
+            board.move(A1, A3);
         }
-        assertNotEquals(result, expected);
     }
 
     /**
      * Тест на полный путь, проверяющий, что в исходной клетке нет фигуры.
      * Выбрасывается исключение FigureNotFoundException.
      */
-    @Test
+    @Test (expected = FigureNotFoundException.class)
     public void whenMoveFullWayOfEmptySourceThenException() {
         BishopBlack bishop = new BishopBlack(A1);
         Board board = new Board();
         board.add(new PawnBlack(B2));
         Cell[] result = bishop.way(bishop.position(), H8);
         Cell[] expected = {B2, C3, D4, E5, F6, G7, H8};
-        try {
-            board.move(F8, D6);
-        } catch (FigureNotFoundException fnfe) {
+        if (!(result.equals(expected))) {
             System.out.println("В исходной клетке нет фигуры");
+            board.move(F8, D6);
         }
-        assertNotEquals(result, expected);
     }
 }
