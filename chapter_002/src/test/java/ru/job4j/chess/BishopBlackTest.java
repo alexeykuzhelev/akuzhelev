@@ -88,7 +88,6 @@ public class BishopBlackTest {
         Cell[] result = bishop.way(bishop.position(), H8);
         Cell[] expected = {B2, C3, D4, E5, F6, G7, H8};
         if (!(result.equals(expected))) {
-            System.out.println("Слон не может ходить через фигуру");
             board.move(bishop.position(), H8);
         }
     }
@@ -105,7 +104,6 @@ public class BishopBlackTest {
         Cell[] result = bishop.way(bishop.position(), H8);
         Cell[] expected = {B2, C3, D4, E5, F6, G7, H8};
         if (!(result.equals(expected))) {
-            System.out.println("Слон не может так ходить");
             board.move(A1, A3);
         }
     }
@@ -122,7 +120,6 @@ public class BishopBlackTest {
         Cell[] result = bishop.way(bishop.position(), H8);
         Cell[] expected = {B2, C3, D4, E5, F6, G7, H8};
         if (!(result.equals(expected))) {
-            System.out.println("В исходной клетке нет фигуры");
             board.move(F8, D6);
         }
     }
