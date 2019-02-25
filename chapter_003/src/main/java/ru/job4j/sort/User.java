@@ -3,7 +3,7 @@ package ru.job4j.sort;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 22.02.2019
+ * @since 25.02.2019
  */
 
 /**
@@ -28,6 +28,7 @@ public class User implements Comparable<User> {
 
     /**
      * Метод сравнивает текущий объект с объектом, переданным в качестве параметра.
+     * Сортируем по возрасту  или если возраст одинаковый, то по имени в лексикографическом порядке.
      * @param o - другой пользователь для сравнения с текущим.
      * @return   0 если возрасты пользователей равны,
      *          +1 если возраст текущего пользователя больше,
@@ -35,7 +36,7 @@ public class User implements Comparable<User> {
      */
     @Override
     public int compareTo(User o) {
-        return Integer.compare(this.age, o.age);
+        return this.age == o.age ? this.name.compareTo(o.name) : Integer.compare(this.age, o.age);
     }
 
     @Override
