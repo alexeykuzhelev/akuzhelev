@@ -4,8 +4,8 @@ package ru.job4j.converter;
  * Корвертор валюты.
  */
 public class Converter {
-    private final int COURSE_EURO = 70;
-    private final int COURSE_DOLLAR = 60;
+    private static final int COURSE_EURO = 70;
+    private static final int COURSE_DOLLAR = 60;
     private double result;
 
     /**

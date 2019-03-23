@@ -30,8 +30,8 @@ public class ArrayChar {
         char[] value = prefix.toCharArray();
         //Проверить, что массив data имеет первые элементы одинаковые с value.
         //Цикл выполняется, пока не дойдем до конца префикса.
-        for(int i = 0; i < value.length; i++){
-            if(data[i] != value[i]){
+        for (int i = 0; i < value.length; i++) {
+            if (data[i] != value[i]) {
                 //если находит несоответствие первых элементов, возвращает false
                 result = false;
             }
