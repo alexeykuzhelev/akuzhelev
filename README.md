@@ -6,3 +6,6 @@ http://job4j.ru/
 
 Уровни, которые собираюсь пройти: "Стажер", "Junior", "Pre-middle".
 
+[![Build Status](https://travis-ci.org/alexeykuzhelev/akuzhelev.svg?branch=master)](https://travis-ci.org/alexeykuzhelev/akuzhelev)
+
+[![codecov](https://codecov.io/gh/alexeykuzhelev/akuzhelev/branch/master/graph/badge.svg)](https://codecov.io/gh/alexeykuzhelev/akuzhelev)
