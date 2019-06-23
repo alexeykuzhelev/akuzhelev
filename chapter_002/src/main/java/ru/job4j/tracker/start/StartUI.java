@@ -5,10 +5,12 @@ import ru.job4j.tracker.storage.*;
 import ru.job4j.tracker.actions.*;
 import ru.job4j.tracker.models.*;
 
+import java.util.function.Consumer;
+
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 29.08.2018
+ * @since 23.06.2019
  */
 
 /**
@@ -29,15 +31,21 @@ public class StartUI {
      * Программа работает до тех пор, пока значение истинно.
      */
     private boolean exit = true;
+    /**
+     * Поле для вывода данных.
+     */
+    private final Consumer<String> output;
 
     /**
      * Конструтор инициализирующий поля.
      * @param input ввод данных.
      * @param tracker хранилище заявок.
+     * @param output вывод данных.
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
 
     /**
@@ -48,7 +56,7 @@ public class StartUI {
      * addAction - вызов метода, добавляющего новое действие.
      */
     public void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.tracker, this.output);
         menu.fillActions(this);
         BaseAction deleteAction = new BaseAction(6, "Delete item") {
             /**
@@ -84,7 +92,7 @@ public class StartUI {
     }
 
     /**
-     * Запускт программы.
+     * Запускт программы через консоль.
      * @param args
      */
     public static void main(String[] args) {
@@ -92,7 +100,8 @@ public class StartUI {
                 new ValidateInput(
                         new ConsoleInput()
                 ),
-                new Tracker()
+                new Tracker(),
+                System.out::println
         ).init();
     }
 }

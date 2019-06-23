@@ -5,11 +5,12 @@ import ru.job4j.tracker.start.*;
 import ru.job4j.tracker.storage.*;
 import ru.job4j.tracker.input.*;
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 27.01.2019
+ * @since 23.06.2019
  */
 
 /**
@@ -25,19 +26,24 @@ public class MenuTracker {
 	 */
 	private Tracker tracker;
 	/**
+	 * @param output хранит ссылку на объект вывода.
+	 */
+	private Consumer<String> output;
+	/**
 	 * @param actions хранит ссылку на массив типа UserAction (действия пользователя).
 	 */
 	private List<UserAction> actions = new ArrayList<>();
 
 	/**
 	 * Конструктор.
-	 *
+	 * @param output объект типа Consumer, реализующего интерфэйс Consumer.
 	 * @param input   объект типа Input, реализующего интерфэйс Input.
 	 * @param tracker объект типа Tracker.
 	 */
-	public MenuTracker(Input input, Tracker tracker) {
+	public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
 		this.input = input;
 		this.tracker = tracker;
+		this.output = output;
 	}
 
 	/**
@@ -100,7 +106,7 @@ public class MenuTracker {
 	public void show() {
 		for (UserAction action : this.actions) {
 			if (action != null) {
-				System.out.println(action.info());
+				output.accept(action.info());
 			}
 		}
 	}
@@ -127,7 +133,7 @@ public class MenuTracker {
 		 */
 		@Override
 		public void execute(Input input, Tracker tracker) {
-			System.out.println("------------ Adding new item --------------");
+			output.accept("------------ Adding new item --------------");
 			String name = input.ask("Please, provide item name:");
 			String desc = input.ask("Please, provide item description:");
 			Item item = new Item(name, desc);
@@ -140,7 +146,7 @@ public class MenuTracker {
 			sb.append(LN);
 			sb.append("------------ New Item with Description : " + item.getDescription());
 			sb.append(LN);
-			System.out.println(sb.toString());
+			output.accept(sb.toString());
 		}
 	}
 
@@ -166,11 +172,11 @@ public class MenuTracker {
 		@Override
 		public void execute(Input input, Tracker tracker) {
 			StringBuilder sb = new StringBuilder();
-			System.out.println("---------- Список существующих заявок. ----------");
+			output.accept("---------- Список существующих заявок. ----------");
 			for (Item item : tracker.findAll()) {
 				sb.append(item.toString());
 				sb.append(LN);
-				System.out.println(item.toString());
+				output.accept(item.toString());
 			}
 		}
 	}
