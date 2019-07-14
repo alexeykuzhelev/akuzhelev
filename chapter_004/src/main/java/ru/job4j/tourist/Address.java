@@ -3,7 +3,7 @@ package ru.job4j.tourist;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 12.07.2019
+ * @since 14.07.2019
  */
 
 /**
@@ -37,6 +37,12 @@ public class Address {
 
     public int getApartment() {
         return apartment;
+    }
+
+    @Override
+    public String toString() {
+        return "city=" + city + ", street=" + street + ", "
+                + "home=" + home + ", apartment=" + apartment + "\n";
     }
 
     @Override
