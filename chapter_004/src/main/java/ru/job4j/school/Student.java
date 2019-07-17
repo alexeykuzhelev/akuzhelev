@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 04.07.2019
+ * @since 17.07.2019
  */
 
 /**
@@ -16,6 +16,15 @@ public class Student {
      * Общий балл ученика по всем предметам.
      */
     private int score;
+    /**
+     * Фамилия ученика.
+     */
+    private String surname;
+
+    public Student(int score, String surname) {
+        this.score = score;
+        this.surname = surname;
+    }
 
     public Student(int score) {
         this.score = score;
@@ -25,13 +34,14 @@ public class Student {
         return score;
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
     @Override
     public String toString() {
-        return "Student{"
-                + "score="
-                + score
-                + '\''
-                + '}';
+        return "Student("
+                + "score = " + score + ", " + "surname = " + surname + ')';
     }
 
     @Override
