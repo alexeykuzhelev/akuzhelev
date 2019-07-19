@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 17.07.2019
+ * @since 19.07.2019
  */
 
 /**
@@ -32,7 +32,14 @@ public class School {
      * @return Map, где ключ - фамилия ученика, а значение - объект ученика.
      */
     public Map<String, Student> getMapStudents(List<Student> students) {
-        return students.stream().distinct().collect(Collectors.toMap(student -> student.getSurname(), student -> student));
+        return students.stream().
+                collect(Collectors.toMap(student -> student.getSurname(),
+                        student -> student,
+                        (s, s1) -> {
+                            System.out.println("Дубликат: " + s1);
+                            return s;
+                        }
+                ));
     }
 
     public static void main(String[] args) {
