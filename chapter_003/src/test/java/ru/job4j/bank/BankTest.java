@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 14.04.2019
+ * @since 08.08.2019
  */
 
 /**
@@ -22,7 +22,7 @@ public class BankTest {
         bank.addUser(new User("Джон  Доу", "000002"));
         bank.addAccountToUser("000002", new Account(2000, "00000002"));
         bank.transferMoney("000001", "00000001", "000002", "00000002", 100);
-        double result = bank.findAccount(bank.getUserAccounts("000002"), "00000002").getValue();
+        double result = bank.findAccount(bank.getUserAccounts("000002"), "00000002").get().getValue();
         assertThat(result, is(2100.0));
     }
 

@@ -1,14 +1,12 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 14.04.2019
+ * @since 08.08.2019
  */
 
 /**
@@ -41,10 +39,14 @@ public class Bank {
      * Метод добавляет счет пользователю.
      * @param passport - паспортные данные.
      * @param account  - банковский счет.
+     * user.isPresent() - проверка, что пользователь есть.
+     * accountOpt.isPresent() - проверка, что аккаунт есть.
      */
     public void addAccountToUser(String passport, Account account) {
         List<Account> list = this.getUserAccounts(passport);
-        if (list.indexOf(account) < 0) {
+        Optional<User> user = findUserByPassport(passport);
+        Optional<Account> accountOpt = Optional.of(account);
+        if (user.isPresent() && accountOpt.isPresent() && list.indexOf(account) < 0) {
             list.add(account);
         }
     }
@@ -53,25 +55,40 @@ public class Bank {
      * Метод удаляет один счет пользователя.
      * @param passport - паспортные данные.
      * @param account - банковский счет.
+     * user.isPresent() - проверка, что пользователь есть.
+     * accountOpt.isPresent() - проверка, что аккаунт есть.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        this.getUserAccounts(passport).remove(account);
+        Optional<User> user = findUserByPassport(passport);
+        Optional<Account> accountOpt = Optional.of(account);
+        if (user.isPresent() && accountOpt.isPresent()) {
+            this.getUserAccounts(passport).remove(account);
+        }
     }
 
     /**
      * Метод получает список счетов для пользователя.
      * @param passport - паспортные данные.
+     * user.isPresent() - проверка, что пользователь есть.
      * @return - список счетов.
      */
     public List<Account> getUserAccounts(String passport) {
         List<Account> result = new ArrayList<>();
-        for (Map.Entry<User, List<Account>> entry : this.accounts.entrySet()) {
-            if (passport.equals(entry.getKey().getPassport())) {
-                result = entry.getValue();
-                break;
-            }
+        Optional<User> user = findUserByPassport(passport);
+        if (user.isPresent()) {
+            result = accounts.get(user.get());
         }
         return result;
+    }
+
+    /**
+     * Метод находит клиента по паспортным данным.
+     * @param passport - паспортные данные.
+     * @return Optional<User>.
+     */
+    public Optional<User> findUserByPassport(String passport) {
+        return accounts.entrySet().stream().map(Map.Entry::getKey)
+                .filter(us -> us.getPassport().equals(passport)).findFirst();
     }
 
     /**
@@ -87,13 +104,13 @@ public class Bank {
      */
     public boolean transferMoney(String srcPassport, String srcRequisite, String dstPassport, String dstRequisite, double amount) {
         boolean result = true;
-        Account srcAccount = this.findAccount(this.getUserAccounts(srcPassport), srcRequisite);
-        Account dstAccount = this.findAccount(this.getUserAccounts(dstPassport), dstRequisite);
-        if (srcAccount == null || dstAccount == null || (srcAccount.getValue() - amount) < 0) {
+        Optional<Account> srcAccount = this.findAccount(this.getUserAccounts(srcPassport), srcRequisite);
+        Optional<Account> dstAccount = this.findAccount(this.getUserAccounts(dstPassport), dstRequisite);
+        if (!srcAccount.isPresent() || !dstAccount.isPresent() || (srcAccount.get().getValue() - amount) < 0) {
             result = false;
         } else {
-            srcAccount.setValue(srcAccount.getValue() - amount);
-            dstAccount.setValue(dstAccount.getValue() + amount);
+            srcAccount.get().setValue(srcAccount.get().getValue() - amount);
+            dstAccount.get().setValue(dstAccount.get().getValue() + amount);
         }
         return result;
     }
@@ -102,16 +119,13 @@ public class Bank {
      * Метод находит банковский счет пользователя по его реквизитам.
      * @param list - список банковских счетов пользователя.
      * @param requisite - реквизиты банковского счета.
-     * @return - банковский счет пользователя.
+     * @return Optional<Account>.
      */
-    public Account findAccount(List<Account> list, String requisite) {
-        Account result = null;
-        for (Account account : list) {
-            if (requisite.equals(account.getRequisites())) {
-                result = account;
-                break;
-            }
+    public Optional<Account> findAccount(List<Account> list, String requisite) {
+        Optional<Account> account = Optional.empty();
+        if (!list.isEmpty()) {
+            account = list.stream().filter(ac -> ac.getRequisites().equals(requisite)).findFirst();
         }
-        return result;
+        return account;
     }
 }
