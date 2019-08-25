@@ -1,17 +1,18 @@
 package ru.job4j.school;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 17.07.2019
+ * @since 25.08.2019
  */
 
 /**
  * Класс реализует поля и методы ученика.
  */
-public class Student {
+public class Student implements Comparator<Student> {
     /**
      * Общий балл ученика по всем предметам.
      */
@@ -59,5 +60,10 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(score);
+    }
+
+    @Override
+    public int compare(Student s1, Student s2) {
+        return s2.getScore() - s1.getScore();
     }
 }
