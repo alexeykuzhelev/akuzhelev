@@ -2,18 +2,15 @@ package ru.job4j.school;
 
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import java.util.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 17.07.2019
+ * @since 25.08.2019
  */
 
 /**
@@ -64,6 +61,18 @@ public class SchoolTest {
         expect.put(student1.getSurname(), student1);
         expect.put(student2.getSurname(), student2);
         Map<String, Student> result = school.getMapStudents(students);
+        assertThat(result, is(expect));
+    }
+    /**
+     * Тест проверяет отбор студентов, у которых балл аттестата больше заданного значения.
+     */
+    @Test
+    public void whenStudentScoreMoreThenBound() {
+        int bound = 50;
+        List<Student> expect = Arrays.asList(student3, student2);
+        List<Student> arrayStudents = new ArrayList<>(students);
+        arrayStudents.add(null);
+        List<Student> result = school.levelOf(arrayStudents, bound);
         assertThat(result, is(expect));
     }
 }

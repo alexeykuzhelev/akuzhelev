@@ -1,15 +1,17 @@
 package ru.job4j.school;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 19.07.2019
+ * @since 25.08.2019
  */
 
 /**
@@ -42,6 +44,18 @@ public class School {
                 ));
     }
 
+    /**
+     * Метод отбирает студентов, у которых балл аттестата больше заданного значения.
+     * Кроме того убирает значения null в списке студентов с помощью метода Stream.ofNullable.
+     * @param students - список студентов.
+     * @param bound - балл аттестата студента должен быть выше этого значения.
+     * @return список студентов, отфильтрованных в соответствии с условием.
+     */
+    List<Student> levelOf(List<Student> students, int bound) {
+        return students.stream().flatMap(Stream::ofNullable).sorted((s1, s2) -> s1.compare(s1, s2))
+                .takeWhile(x -> x.getScore() > bound).collect(Collectors.toList());
+    }
+
     public static void main(String[] args) {
         School school = new School();
         Student student1 = new Student(15, "Petrov");
@@ -53,5 +67,10 @@ public class School {
             String result = "Key: " + entry.getKey() + ", " + "Value: " + entry.getValue().toString();
             System.out.println(result);
         });
+        int bound = 50;
+        List<Student> arrayStudents = new ArrayList<>(students);
+        arrayStudents.add(null);
+        List<Student> result2 = school.levelOf(arrayStudents, bound);
+        System.out.println(result2);
     }
 }

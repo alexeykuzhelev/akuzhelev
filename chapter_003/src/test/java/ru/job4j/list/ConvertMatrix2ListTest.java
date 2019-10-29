@@ -1,15 +1,16 @@
 package ru.job4j.list;
 
 import org.junit.Test;
-import java.util.Arrays;
+
 import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 23.12.2018
+ * @since 31.08.2019
  */
 
 /**
@@ -26,7 +27,7 @@ public class ConvertMatrix2ListTest {
                 {1, 2},
                 {3, 4}
         };
-        List<Integer> expect = Arrays.asList(
+        List<Integer> expect = List.of(
                 1, 2, 3, 4
         );
         List<Integer> result = list.toList(input);

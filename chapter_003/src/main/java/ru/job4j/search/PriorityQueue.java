@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 02.12.2018
+ * @since 06.09.2019
  */
 
 /**
@@ -24,7 +24,7 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        int index = 0;
+        var index = 0;
         while (index < tasks.size()) {
             if (task.getPriority() < tasks.get(index).getPriority()) {
                 break;

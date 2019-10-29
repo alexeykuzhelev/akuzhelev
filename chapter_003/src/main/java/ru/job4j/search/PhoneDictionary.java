@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 18.11.2018
+ * @since 06.09.2019
  */
 
 /**
@@ -33,7 +33,7 @@ public class PhoneDictionary {
      */
     public List<Person> find(String key) {
         List<Person> result = new ArrayList<>();
-        for (Person person: persons) {
+        for (var person: persons) {
             if (person.getName().contains(key)
                     || person.getSurname().contains(key)
                     || person.getPhone().contains(key)
