@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 20.11.2019
+ * @since 21.11.2019
  */
 
 /**
@@ -38,12 +38,10 @@ public class EvenNumbersIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
-        int position;
         if (!hasNext()) {
             throw new NoSuchElementException("no any even numbers");
         }
-        position = this.numbers[index++];
-        return position;
+        return this.numbers[index++];
     }
 
     /**

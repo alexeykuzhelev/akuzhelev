@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.is;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 20.11.2019
+ * @since 21.11.2019
  */
 
 /**
