@@ -19,7 +19,7 @@ public class StreamApi {
      * @return число, полученное в результате подсчета.
      */
     public int calculate(int[] arr) {
-        return Arrays.stream(arr).filter(s->s % 2 == 0)
-                .reduce(0, (x, y)->x + y * y);
+        return Arrays.stream(arr).filter(s -> s % 2 == 0)
+                .reduce(0, (x, y) -> x + y * y);
     }
 }

@@ -30,7 +30,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     /**
-     * Метод заменяет указанным элементом (model) элемент, находящийся по индексу index.
+     * Метод заменяет указанным элементом (model) элемент, находящийся по индексу position.
      */
     public void set(int position, T model) throws ArrayIndexOutOfBoundsException {
         checkSizeContainer(position);
