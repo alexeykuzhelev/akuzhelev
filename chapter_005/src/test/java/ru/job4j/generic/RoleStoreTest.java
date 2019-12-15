@@ -2,8 +2,6 @@ package ru.job4j.generic;
 
 import org.junit.Test;
 
-import java.util.NoSuchElementException;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -47,15 +45,15 @@ public class RoleStoreTest {
         assertThat(result, is(role2));
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void whenReplaceElementAndGetReplacedElementShouldReturnException() {
+    @Test
+    public void whenReplaceElementAndGetReplacedElementShouldReturnNull() {
         RoleStore roleStore = new RoleStore(2);
         Role role1 = new Role("test1");
         Role role2 = new Role("test2");
         roleStore.add(role1);
         assertTrue(roleStore.replace("test1", role2));
         assertThat(roleStore.findById("test2"), is(role2));
-        roleStore.findById("test1");
+        assertNull(roleStore.findById("test1"));
     }
 
     @Test
@@ -66,11 +64,11 @@ public class RoleStoreTest {
         assertFalse(roleStore.delete("test2"));
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void whenFindByIdCannotFindIdShouldReturnException() {
+    @Test
+    public void whenFindByIdCannotFindIdShouldReturnNull() {
         RoleStore roleStore = new RoleStore(2);
         Role role1 = new Role("test1");
         roleStore.add(role1);
-        roleStore.findById("test2");
+        assertNull(roleStore.findById("test2"));
     }
 }

@@ -1,7 +1,5 @@
 package ru.job4j.generic;
 
-import java.util.NoSuchElementException;
-
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
@@ -22,7 +20,7 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
     /**
      * Метод возвращает индекс массива по указанному id его элемента.
      */
-    private int getIndex(String id) throws NoSuchElementException {
+    private int getIndex(String id) {
         int index = 0;
         boolean exist = false;
         for (T model : simpleArray) {
@@ -79,10 +77,10 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
      * Метод возвращает элемент массива, определяя его индекс по id.
      */
     @Override
-    public T findById(String id) throws NoSuchElementException {
+    public T findById(String id) {
         int index = getIndex(id);
         if (index == -1) {
-            throw new NoSuchElementException("model not found by id: " + id);
+            return null;
         }
         return this.simpleArray.get(index);
     }

@@ -2,8 +2,6 @@ package ru.job4j.generic;
 
 import org.junit.Test;
 
-import java.util.NoSuchElementException;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -47,15 +45,15 @@ public class UserStoreTest {
         assertThat(result, is(user2));
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void whenReplaceElementAndGetReplacedElementShouldReturnException() {
+    @Test
+    public void whenReplaceElementAndGetReplacedElementShouldReturnNull() {
         UserStore userStore = new UserStore(2);
         User user1 = new User("test1");
         User user2 = new User("test2");
         userStore.add(user1);
         assertTrue(userStore.replace("test1", user2));
         assertThat(userStore.findById("test2"), is(user2));
-        userStore.findById("test1");
+        assertNull(userStore.findById("test1"));
     }
 
     @Test
@@ -66,11 +64,11 @@ public class UserStoreTest {
         assertFalse(userStore.delete("test2"));
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void whenFindByIdCannotFindIdShouldReturnException() {
+    @Test
+    public void whenFindByIdCannotFindIdShouldReturnNull() {
         UserStore userStore = new UserStore(2);
         User user1 = new User("test1");
         userStore.add(user1);
-        userStore.findById("test2");
+        assertNull(userStore.findById("test2"));
     }
 }
