@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 30.12.2019
+ * @since 02.01.2020
  */
 
 /**
@@ -46,11 +46,10 @@ public class DynamicArrayList<T> implements Iterable<T> {
      * @param capacity - емкость колелкции.
      */
     public DynamicArrayList(int capacity) {
-        if (capacity > 0) {
-            container = new Object[capacity];
-        } else {
+        if (capacity <= 0) {
             throw new IllegalArgumentException("Illegal Capacity: " + capacity);
         }
+        container = new Object[capacity];
     }
 
     /**
