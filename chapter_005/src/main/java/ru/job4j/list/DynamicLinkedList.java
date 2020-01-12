@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 10.01.2020
+ * @since 12.01.2020
  */
 
 /**
@@ -50,17 +50,13 @@ public class DynamicLinkedList<E> implements Iterable<E> {
      * Метод получения элемента по индексу.
      */
     public E get(int index) {
-        if (index < 0) {
+        if (index < 0 || index >= modCount) {
             throw new IndexOutOfBoundsException();
         }
         Iterator<E> iterator = iterator();
         E result = null;
         for (int i = 0; i <= index; i++) {
-            try {
-                result = iterator.next();
-            } catch (NoSuchElementException ex) {
-                throw new IndexOutOfBoundsException();
-            }
+			result = iterator.next();               
         }
         return result;
     }
