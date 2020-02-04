@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 28.01.2020
+ * @since 04.02.2020
  */
 
 /**
@@ -90,6 +90,41 @@ public class DynamicLinkedListStackContainer<E> implements Iterable<E> {
         modCount++;
         return deletedData;
     }
+
+    /**
+     * Метод удаляет первый элемент в списке и возвращает его значение.
+     * @return - значение удаляемого элемента.
+     */	
+    public E deleteFirst() {
+       E deletedData = null;
+        if (first != null) {
+            deletedData = unlinkFirst(first);
+        }
+        return deletedData;
+    }
+	
+    /**
+	 * Метод связывает элементы при удалении.
+     * Убираем ссылки на первый элемент.
+     * Делаем следующий элемент первым.
+     * @param node - первый элемент в списке.
+     * @return - значение удаляемого элемента.
+     */
+    private E unlinkFirst(Node<E> node) {
+        E deletedData = node.data;
+        Node<E> next = node.next;
+        node.data = null;
+        node.next = null; 
+        first = next;
+        if (next == null) {
+            last = null;
+        } else {
+            next.prev = null;
+        }
+        size--;
+        modCount++;
+        return deletedData;
+    }	
 
     /**
      * Метод получения элемента по индексу.
