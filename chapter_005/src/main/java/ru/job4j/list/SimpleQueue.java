@@ -3,7 +3,7 @@ package ru.job4j.list;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 04.02.2020
+ * @since 07.02.2020
  */
 
 /**
@@ -17,7 +17,7 @@ public class SimpleQueue<T> {
     private DynamicLinkedListStackContainer<T> stackContainer = new DynamicLinkedListStackContainer<>();
 
     /**
-     * Метод удаляет первый элемент из очереди и возвращает его значение.
+     * Метод удаляет элемент из конца очереди и возвращает его значение.
      * @return - значение удаляемого элемента.
      */
     public T poll() {
@@ -25,10 +25,10 @@ public class SimpleQueue<T> {
     }
 
     /**
-     * Метод вставляет элемент в конец связанного списка.
+     * Метод вставляет элемент в начало очереди.
      * @param value - данные, хранимые в элементе списка.
      */
     public void push(T value) {
-        stackContainer.add(value);
+        stackContainer.addFirst(value);
     }
 }
