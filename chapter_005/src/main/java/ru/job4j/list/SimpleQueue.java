@@ -3,7 +3,7 @@ package ru.job4j.list;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 07.02.2020
+ * @since 09.02.2020
  */
 
 /**
@@ -12,23 +12,33 @@ package ru.job4j.list;
  */
 public class SimpleQueue<T> {
     /**
-     * Динамический контейнер на базе связанного списка.
+     * Поле для первого стека.
      */
-    private DynamicLinkedListStackContainer<T> stackContainer = new DynamicLinkedListStackContainer<>();
+    private SimpleStackFIFO<T> stackOne = new SimpleStackFIFO<>();
+    /**
+     * Поле для второго стека.
+     */
+    private SimpleStackFIFO<T> stackTwo = new SimpleStackFIFO<>();
 
     /**
-     * Метод удаляет элемент из конца очереди и возвращает его значение.
+     * Метод удаляет элемент из очереди и возвращает его значение по FIFO.
      * @return - значение удаляемого элемента.
-     */
+     */	
     public T poll() {
-        return stackContainer.deleteFirst();
-    }
-
+        if (stackTwo.size() == 0) {
+            int stackSize = stackOne.size();
+            for (int i = 0; i < stackSize; i++) {
+                stackTwo.push(stackOne.poll());
+            }
+        }
+        return stackTwo.poll();
+    }	
+	
     /**
-     * Метод вставляет элемент в начало очереди.
+     * Метод вставляет элемент в начало очереди, используя первый стек.
      * @param value - данные, хранимые в элементе списка.
      */
     public void push(T value) {
-        stackContainer.addFirst(value);
+        stackOne.push(value);
     }
 }

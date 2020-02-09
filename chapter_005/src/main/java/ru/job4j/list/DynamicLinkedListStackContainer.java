@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 07.02.2020
+ * @since 09.02.2020
  */
 
 /**
@@ -200,5 +200,13 @@ public class DynamicLinkedListStackContainer<E> implements Iterable<E> {
         private Node(E data) {
             this.data = data;
         }
+    }
+
+    /**
+     * Метод возвращает размер списка.
+     * @return - размер списка.
+     */
+    public int size() {
+        return size;
     }
 }
