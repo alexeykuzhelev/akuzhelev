@@ -7,29 +7,36 @@ import java.util.Iterator;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 23.02.2020
+ * @since 27.02.2020
  */
 
 /**
  * Класс реализует коллекцию Set на массиве.
  * @param <E> - тип данных в коллекции.
  */
-public class SimpleSet<E> extends DynamicArrayList<E> {
+public class SimpleSet<E> implements Iterable<E> {
+
     /**
-     * Конструктор вызывает конструктор суперкласса.
+     * Внутреннее хранилище данных.
      */
-    public SimpleSet() {
-        super();
-    }
+    private DynamicArrayList<E> dynamicContainer = new DynamicArrayList<>();
 
     /**
      * Метод добавляет элемент в коллекцию без дубликатов.
      * @param e - добавляемый элемент.
      */
-    @Override
     public void add(E e) {
+        if (contains(e)) {
+            dynamicContainer.add(e);
+        }
+    }
+
+    /**
+     * Метод определяет, содержит ли коллекция дубликат элемента.
+     */
+    public boolean contains(E e) {
         boolean unique = true;
-        Iterator itr = super.iterator();
+        Iterator itr = iterator();
         while (itr.hasNext()) {
             E element = (E) itr.next();
             if (element.equals(e)) {
@@ -37,8 +44,11 @@ public class SimpleSet<E> extends DynamicArrayList<E> {
                 break;
             }
         }
-        if (unique) {
-            super.add(e);
-        }
+        return unique;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return dynamicContainer.iterator();
     }
 }
