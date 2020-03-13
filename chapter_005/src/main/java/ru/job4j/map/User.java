@@ -5,7 +5,7 @@ import java.util.Calendar;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 01.03.2020
+ * @since 14.03.2020
  */
 
 /**
@@ -13,9 +13,9 @@ import java.util.Calendar;
  */
 public class User {
 
-    private String name;
-    private int children;
-    private Calendar birthday;
+    String name;
+    int children;
+    Calendar birthday;
 
     public User(String name, int children, Calendar birthday) {
         this.name = name;
