@@ -7,7 +7,7 @@ import java.util.Queue;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 26.05.2020
+ * @since 03.06.2020
  */
 
 /**
@@ -63,5 +63,28 @@ public class Tree<E> implements SimpleTree<E> {
             data.addAll(el.children);
         }
         return result;
+    }
+
+    /**
+     * Метод проверяет количество дочерних элементов в дереве.
+     * Если дочерних элементов <= 2 - то дерево бинарное.
+     * Метод должен циклически пройти по всем элементам дерева.
+     * @return - true, если дерево бинарное.
+     * @return - false, если дерево не бинарное.
+     */
+    public boolean isBinary() {
+        boolean isBinary = true;
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(root);
+        while (!data.isEmpty()) {
+            Node<E> el = data.poll();
+            if (el.children.size() > 2) {
+                isBinary = false;
+                break;
+            } else {
+                data.addAll(el.children);
+            }
+        }
+        return isBinary;
     }
 }
