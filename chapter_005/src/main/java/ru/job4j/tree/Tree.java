@@ -3,11 +3,12 @@ package ru.job4j.tree;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.function.Predicate;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 03.06.2020
+ * @since 05.06.2020
  */
 
 /**
@@ -51,18 +52,7 @@ public class Tree<E> implements SimpleTree<E> {
 
     @Override
     public Optional<Node<E>> findBy(E value) {
-        Optional<Node<E>> result = Optional.empty();
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            if (el.value.equals(value)) {
-                result = Optional.of(el);
-                break;
-            }
-            data.addAll(el.children);
-        }
-        return result;
+        return findNodeByPredicate(node -> node.value.equals(value));
     }
 
     /**
@@ -73,18 +63,26 @@ public class Tree<E> implements SimpleTree<E> {
      * @return - false, если дерево не бинарное.
      */
     public boolean isBinary() {
-        boolean isBinary = true;
+        return !findNodeByPredicate(node -> node.children.size() > 2).isPresent();
+    }
+
+    /**
+     * Метод находит в дереве узел согласно заданному условию.
+     * @param predicate - заданное условие.
+     * @return Optional<Node<E>> - содержит узел при его наличии, или пустое значение.
+     */
+    public Optional<Node<E>> findNodeByPredicate(Predicate<Node<E>> predicate) {
+        Optional<Node<E>> result = Optional.empty();
         Queue<Node<E>> data = new LinkedList<>();
-        data.offer(root);
+        data.offer(this.root);
         while (!data.isEmpty()) {
             Node<E> el = data.poll();
-            if (el.children.size() > 2) {
-                isBinary = false;
+            if (predicate.test(el)) {
+                result = Optional.of(el);
                 break;
-            } else {
-                data.addAll(el.children);
             }
+            data.addAll(el.children);
         }
-        return isBinary;
+        return result;
     }
 }
