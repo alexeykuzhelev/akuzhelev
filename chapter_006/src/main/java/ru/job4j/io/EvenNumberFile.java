@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 13.09.2020
+ * @since 21.09.2020
  */
 
 /**
@@ -17,8 +17,12 @@ public class EvenNumberFile {
                 "./chapter_006/src/main/java/ru/job4j/io/resources/even.txt")) {
             StringBuilder text = new StringBuilder();
             int read;
+            int min = 48;
+            int max = 57;
             while ((read = in.read()) != -1) {
-                text.append((char) read);
+                if (rangeCheck(read, min, max) || read == 13 || read == 10) {
+                    text.append((char) read);
+                }
             }
             String[] lines = text.toString().split(System.lineSeparator());
             for (String line : lines) {
@@ -29,4 +33,9 @@ public class EvenNumberFile {
             e.printStackTrace();
         }
     }
+
+    public static boolean rangeCheck(int read, int min, int max) {
+        return read >= min && read <= max;
+    }
+
 }
