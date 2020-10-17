@@ -3,6 +3,8 @@ package ru.job4j.io;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
@@ -19,23 +21,15 @@ public class LogFilter {
      * где предпоследнее число - это 404.
      */
     public static List<String> filter(String fileName) {
-        List<String> result = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(
                 new FileReader(fileName))) {
-            List<String> lines = new ArrayList<>();
-            in.lines().forEach(lines::add);
-            System.out.println("Исходный текст log.txt файла: ");
-            for (String line : lines) {
-                if (line.contains("404")) {
-                    result.add(line);
-                }
-                System.out.println(line);
-            }
-            System.out.println("");
+            Stream<String> linesStream = in.lines().filter(x -> x.contains(" 404 "));
+            linesStream.forEach(lines::add);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return lines;
     }
 
     public static void main(String[] args) {
