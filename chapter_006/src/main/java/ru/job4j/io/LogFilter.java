@@ -3,17 +3,16 @@ package ru.job4j.io;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 15.10.2020
+ * @since 12.11.2020
  */
 
 /**
- * Класс реализует чтение данных из файла через буферизированные потоки.
+ * Класс реализует чтение-запись данных из файла/в файл через буферизированные потоки.
  */
 public class LogFilter {
     /**
@@ -32,9 +31,24 @@ public class LogFilter {
         return lines;
     }
 
+    /**
+     * Метод записывает результат фильтрации в файл.
+     */
+    public static void save(List<String> log, String file) {
+        try (PrintWriter out = new PrintWriter(
+                new BufferedOutputStream(
+                        new FileOutputStream(file)
+                ))) {
+            out.write(String.join(System.lineSeparator(), log));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         List<String> log = filter(
                 "./chapter_006/src/main/java/ru/job4j/io/resources/log.txt");
+        save(log, "./chapter_006/src/main/java/ru/job4j/io/resources/404.txt");
         System.out.println("Результат фильтрации строк из log.txt файла: ");
         log.forEach(System.out::println);
     }
