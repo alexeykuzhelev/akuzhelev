@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 /**
  * @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 12.11.2020
+ * @since 17.11.2020
  */
 
 /**
@@ -39,7 +39,9 @@ public class LogFilter {
                 new BufferedOutputStream(
                         new FileOutputStream(file)
                 ))) {
-            out.write(String.join(System.lineSeparator(), log));
+            for (String str : log) {
+                out.write(str + System.lineSeparator());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
