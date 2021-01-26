@@ -12,7 +12,7 @@ import static org.junit.Assert.assertThat;
 /*
   @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 24.01.2021
+ * @since 26.01.2021
  */
 
 /**
@@ -24,17 +24,7 @@ public class AnalizyTest {
 
     @Before
     public void before() {
-        try (PrintWriter out = new PrintWriter(
-                new FileOutputStream(path + "source.log"))) {
-            out.println("200 10:56:01" + System.lineSeparator()
-                    + "500 10:57:01" + System.lineSeparator()
-                    + "400 10:58:01" + System.lineSeparator()
-                    + "200 10:59:01" + System.lineSeparator()
-                    + "500 11:01:02" + System.lineSeparator()
-                    + "200 11:02:02");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Analizy.outPrintlnFile(path + "source.log");
     }
 
     @Test

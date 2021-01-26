@@ -11,7 +11,7 @@ import java.util.Set;
 /*
   @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 24.01.2021
+ * @since 26.01.2021
  */
 
 /**
@@ -52,20 +52,27 @@ public class Analizy {
         }
     }
 
-    public static void main(String[] args) {
-        String pathSource = "./chapter_006/src/main/java/ru/job4j/io/resources/source.log";
-        String pathTarget = "./chapter_006/src/main/java/ru/job4j/io/resources/target.csv";
+    /**
+     * Метод записывает события в файл.
+     */
+    public static void outPrintlnFile(String pathSource) {
         try (PrintWriter out = new PrintWriter(
                 new FileOutputStream(pathSource))) {
-            out.println("200 10:56:01" + System.lineSeparator()
-                    + "500 10:57:01" + System.lineSeparator()
-                    + "400 10:58:01" + System.lineSeparator()
-                    + "200 10:59:01" + System.lineSeparator()
-                    + "500 11:01:02" + System.lineSeparator()
-                    + "200 11:02:02");
+            out.println("200 10:56:01");
+            out.println("500 10:57:01");
+            out.println("400 10:58:01");
+            out.println("200 10:59:01");
+            out.println("500 11:01:02");
+            out.println("200 11:02:02");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        String pathSource = "./chapter_006/src/main/java/ru/job4j/io/resources/source.log";
+        String pathTarget = "./chapter_006/src/main/java/ru/job4j/io/resources/target.csv";
+        outPrintlnFile(pathSource);
         Analizy analizy = new Analizy();
         analizy.unavailable(pathSource, pathTarget);
     }
