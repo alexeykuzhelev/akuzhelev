@@ -6,13 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
   @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 29.03.2021
+ * @since 30.03.2021
  */
 
 /**
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 
-    private List<FileProperty> foundFiles = new ArrayList<>();
+    Set<FileProperty> foundFiles = new HashSet<>();
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
