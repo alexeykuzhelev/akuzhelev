@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 /*
   @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 17.04.2021
+ * @since 18.04.2021
  */
 
 /**
@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  */
 public class Search {
     public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
+        if (args.length != 2) {
             throw new IllegalArgumentException(
                     "Root folder is null. Usage java -jar dir.jar ROOT_FOLDER."
             );
