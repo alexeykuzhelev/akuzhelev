@@ -2,14 +2,14 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /*
   @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 21.06.2021
+ * @since 22.06.2021
  */
 
 /**
@@ -39,18 +39,14 @@ public class ConsoleChat {
      * Метод реализует логику работы консольного чата.
      */
     public void run() {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-             BufferedWriter bw = new BufferedWriter(
-                     new OutputStreamWriter(
-                             new FileOutputStream(path), Charset.forName("WINDOWS-1251")))
-        ) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             String inputLine = "";
             String answerBot;
-            StringBuilder dialogText;
+            StringBuilder dialogText = new StringBuilder();
             boolean botAnswerMessage = true;
             while (!(OUT.equals(inputLine))) {
                 inputLine = br.readLine();
-                dialogText = new StringBuilder(
+                dialogText.append(
                         String.format("User: %s%s", inputLine, System.lineSeparator())
                 );
                 if (STOP.equals(inputLine)) {
@@ -59,34 +55,49 @@ public class ConsoleChat {
                 if (OUT.equals(inputLine) || CONTINUE.equals(inputLine)) {
                     botAnswerMessage = true;
                 } else if (botAnswerMessage) {
-                    answerBot = String.format("Bot: %s%s", getAnswerBot(), System.lineSeparator());
+                    List<String> answersList = getAnswersList();
+                    int i = new Random().nextInt(answersList.size());
+                    answerBot = String.format(
+                            "Bot: %s%s", answersList.get(i), System.lineSeparator()
+                    );
                     dialogText.append(answerBot);
                     System.out.println(answerBot);
                 }
-                bw.write(dialogText.toString());
             }
+            writeDataInFile(dialogText.toString());
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
 
     /**
-     * Метод берет случайную фразу из текстового файла и выводит в ответ.
+     * Метод читает файл с фразами в список.
      */
-    public String getAnswerBot() {
-        List<String> list;
-        String answer = "";
+    public List<String> getAnswersList() {
+        List<String> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(
                         new FileInputStream(botAnswers), Charset.forName("WINDOWS-1251")))
         ) {
-            list = br.lines().collect(Collectors.toList());
-            int i = new Random().nextInt(list.size());
-            answer = list.get(i);
+            br.lines().forEach(list::add);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-        return answer;
+        return list;
+    }
+
+    /**
+     * Метод записывает диалог между ботом и пользователем в файд.
+     */
+    private void writeDataInFile(String dialogText) {
+        try (BufferedWriter bw = new BufferedWriter(
+                new OutputStreamWriter(
+                        new FileOutputStream(path), Charset.forName("WINDOWS-1251")))
+        ) {
+            bw.write(dialogText);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
