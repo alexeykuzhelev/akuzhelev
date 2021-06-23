@@ -9,7 +9,7 @@ import java.util.Random;
 /*
   @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 22.06.2021
+ * @since 23.06.2021
  */
 
 /**
@@ -44,6 +44,7 @@ public class ConsoleChat {
             String answerBot;
             StringBuilder dialogText = new StringBuilder();
             boolean botAnswerMessage = true;
+            List<String> answersList = getAnswersList();
             while (!(OUT.equals(inputLine))) {
                 inputLine = br.readLine();
                 dialogText.append(
@@ -55,7 +56,6 @@ public class ConsoleChat {
                 if (OUT.equals(inputLine) || CONTINUE.equals(inputLine)) {
                     botAnswerMessage = true;
                 } else if (botAnswerMessage) {
-                    List<String> answersList = getAnswersList();
                     int i = new Random().nextInt(answersList.size());
                     answerBot = String.format(
                             "Bot: %s%s", answersList.get(i), System.lineSeparator()
