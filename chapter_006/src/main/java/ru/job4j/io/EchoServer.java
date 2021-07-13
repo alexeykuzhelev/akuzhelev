@@ -25,6 +25,7 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     System.out.println();
+                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
                         String[] strings = str.replaceAll("=", " ").split(" ");
                         if (str.contains("msg") && str.contains("Bye")) {
@@ -32,7 +33,6 @@ public class EchoServer {
                             System.out.println("Сокет закрыт");
                             System.out.println();
                         } else if (str.contains("msg") && !str.contains("Bye")) {
-                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             out.write((strings[2] + "\r\n\r\n").getBytes());
                         }
                         System.out.println(str);
