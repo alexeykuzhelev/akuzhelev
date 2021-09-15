@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 /*
   @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 12.09.2021
+ * @since 15.09.2021
  */
 
 /**
@@ -17,7 +17,7 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        String name = "Alexey";
+        char quote = '\"';
         int age = 44;
         short child = 1;
         boolean genderMan = true;
@@ -25,7 +25,7 @@ public class UsageLog4j {
         byte minusByteValue = (byte) 0b1111_1111;
         float piValue = (float) Math.PI;
         double piValueExt = Math.PI;
-        LOG.debug("User info name : {}, age : {}", name, age);
+        LOG.debug("User info age : {}{}{}", quote, age, quote);
         LOG.debug("User info child : {}, gender man : {}", child, genderMan);
         LOG.debug("User info userId : {}", userId);
         LOG.debug("minByteValue + maxByteValue : {}", minusByteValue);
