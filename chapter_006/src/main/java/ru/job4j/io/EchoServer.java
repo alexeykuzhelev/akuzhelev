@@ -4,10 +4,13 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /*
   @author Alexey Kuzhelev (aleks2kv1977@gmail.com)
  * @version $Id$
- * @since 25.07.2021
+ * @since 03.10.2021
  */
 
 /**
@@ -17,15 +20,18 @@ import java.net.Socket;
  * Если клиент отправляет запрос с параметром msg=Exit, нужно завершить работу сервера.
  * Если клиент отправляет запрос с параметром msg=Hello, ответ будет: Hello, dear friend.
  * Если клиент отправляет запрос с любым другим параметром msg, в ответ отправлять текст запроса.
+ * Добавлена обработка исключения через catch c выводом в логгер.
  */
 public class EchoServer {
-    public static void main(String[] args) throws IOException {
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
+
+    public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
-                             new InputStreamReader(socket.getInputStream()))) {
+                         new InputStreamReader(socket.getInputStream()))) {
                     System.out.println();
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
@@ -44,6 +50,8 @@ public class EchoServer {
                     }
                 }
             }
+        } catch (Exception e) {
+            LOG.error("Exception in log example", e);
         }
     }
 }
