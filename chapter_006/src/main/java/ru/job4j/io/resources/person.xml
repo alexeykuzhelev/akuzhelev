@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<person genderMan="true" age="44" name="Aleks"> <!-- пары атрибут="значение" с логическим, числовым, строковым типом -->
+    <contact zipCode="354000" phone="65-06-40"/> <!-- вложенный объект с атрибутами числового и строкового типов -->
+    <ids> <!-- массив элементов -->
+        <id>idReport-1</id>
+        <id>idReport-2</id>
+        <id>idReport-3</id>
+    </ids>
+</person>
