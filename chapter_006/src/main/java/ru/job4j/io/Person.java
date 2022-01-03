@@ -37,6 +37,26 @@ public class Person {
         this.ids = ids;
     }
 
+    public boolean isGenderMan() {
+        return genderMan;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public String[] getIds() {
+        return ids;
+    }
+
     @Override
     public String toString() {
         return "Person{"
