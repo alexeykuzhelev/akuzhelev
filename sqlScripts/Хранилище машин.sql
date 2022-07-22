@@ -27,7 +27,7 @@ insert into car_bodies(name) values ('Седан'), ('Хэтчбэк'), ('Каб
 insert into car_engines(name) values ('petrol'), ('diesel'), ('electric'), ('gas');
 insert into car_transmissions(name) values ('механическая'), ('автоматическая'), ('гидравлическая');
 insert into cars(name, body_id, engine_id, transmission_id) values('kia', 4, 1, 1), ('audi', 2, 3, 2), ('lada', 1, 4, 3);
-insert into cars(name, body_id, engine_id) values('opel', 1, 3)
+insert into cars(name, body_id, engine_id) values('opel', 1, 3);
 
 --3. Вывести список всех машин и все привязанные к ним детали
 select c.name as car_name,
