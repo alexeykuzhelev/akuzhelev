@@ -20,7 +20,8 @@
         <module>chapter_004</module>
 		<module>chapter_005</module>
         <module>chapter_006</module>
-    </modules>
+		<module>chapter_007</module>
+	</modules>
 	 
 	<dependencies>
         <dependency>
@@ -80,7 +81,12 @@
 			<artifactId>json</artifactId>
 			<version>20200518</version>
 		</dependency>
-	</dependencies>	
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.4.0</version>
+		</dependency>
+	</dependencies>
 	
 	<build>
         <plugins>
