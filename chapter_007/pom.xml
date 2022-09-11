@@ -28,32 +28,32 @@
                     <target>11</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.coderplus.maven.plugins</groupId>
-                <artifactId>copy-rename-maven-plugin</artifactId>
-                <version>1.0.1</version>
-                <executions>
-                    <execution>
-                        <id>copy-file</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <fileSets>
-                                <fileSet>
-                                    <sourceFile>../chapter_006/pom.xml</sourceFile>
-                                    <destinationFile>target/ru/job4j/chapter_006/2.0/chapter_006-2.0.pom</destinationFile>
-                                </fileSet>
-                                <fileSet>
-                                    <sourceFile>../chapter_006/target/chapter_006-2.0.jar</sourceFile>
-                                    <destinationFile>target/ru/job4j/chapter_006/2.0/chapter_006-2.0.jar</destinationFile>
-                                </fileSet>
-                            </fileSets>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.coderplus.maven.plugins</groupId>-->
+<!--                <artifactId>copy-rename-maven-plugin</artifactId>-->
+<!--                <version>1.0.1</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>copy-file</id>-->
+<!--                        <phase>process-resources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <fileSets>-->
+<!--                                <fileSet>-->
+<!--                                    <sourceFile>../chapter_006/pom.xml</sourceFile>-->
+<!--                                    <destinationFile>target/ru/job4j/chapter_006/2.0/chapter_006-2.0.pom</destinationFile>-->
+<!--                                </fileSet>-->
+<!--                                <fileSet>-->
+<!--                                    <sourceFile>../chapter_006/target/chapter_006-2.0.jar</sourceFile>-->
+<!--                                    <destinationFile>target/ru/job4j/chapter_006/2.0/chapter_006-2.0.jar</destinationFile>-->
+<!--                                </fileSet>-->
+<!--                            </fileSets>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
     <dependencies>
@@ -62,12 +62,12 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-        <dependency>
-            <groupId>ru.job4j</groupId>
-            <artifactId>chapter_006</artifactId>
-            <version>2.0</version>
-            <scope>compile</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>ru.job4j</groupId>-->
+<!--            <artifactId>chapter_006</artifactId>-->
+<!--            <version>2.0</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>
