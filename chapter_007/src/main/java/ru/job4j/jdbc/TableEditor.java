@@ -129,17 +129,21 @@ public class TableEditor implements AutoCloseable {
             config.load(in);
         }
         TableEditor tableEditor = new TableEditor(config);
-        String tableName = "demo_table";
-        tableEditor.createTable(tableName);
-        System.out.println(getTableScheme(tableEditor.connection, "demo_table"));
-        tableEditor.addColumn(tableName, "id", "serial primary key");
-        tableEditor.addColumn(tableName, "test_name", "varchar(255)");
-        System.out.println(getTableScheme(tableEditor.connection, "demo_table"));
-        tableEditor.renameColumn(tableName, "test_name", "test_name_new");
-        System.out.println(getTableScheme(tableEditor.connection, "demo_table"));
-        tableEditor.dropColumn(tableName, "test_name_new");
-        System.out.println(getTableScheme(tableEditor.connection, "demo_table"));
-        tableEditor.dropTable(tableName);
-        System.out.println(getTableScheme(tableEditor.connection, "demo_table"));
+        try (Connection connection = tableEditor.connection) {
+            String tableName = "demo_table";
+            tableEditor.createTable(tableName);
+            System.out.println(getTableScheme(connection, "demo_table"));
+            tableEditor.addColumn(tableName, "id", "serial primary key");
+            tableEditor.addColumn(tableName, "test_name", "varchar(255)");
+            System.out.println(getTableScheme(connection, "demo_table"));
+            tableEditor.renameColumn(tableName, "test_name", "test_name_new");
+            System.out.println(getTableScheme(connection, "demo_table"));
+            tableEditor.dropColumn(tableName, "test_name_new");
+            System.out.println(getTableScheme(connection, "demo_table"));
+            tableEditor.dropTable(tableName);
+            System.out.println(getTableScheme(connection, "demo_table"));
+        } finally {
+            System.out.println("connection: " + tableEditor.connection.isClosed());
+        }
     }
 }
