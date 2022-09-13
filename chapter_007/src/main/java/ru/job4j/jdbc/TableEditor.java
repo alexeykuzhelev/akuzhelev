@@ -141,9 +141,8 @@ public class TableEditor implements AutoCloseable {
             tableEditor.dropColumn(tableName, "test_name_new");
             System.out.println(getTableScheme(connection, "demo_table"));
             tableEditor.dropTable(tableName);
-            System.out.println(getTableScheme(connection, "demo_table"));
         } finally {
-            System.out.println("connection: " + tableEditor.connection.isClosed());
+            System.out.println("isClosedConnection: " + tableEditor.connection.isClosed());
         }
     }
 }
