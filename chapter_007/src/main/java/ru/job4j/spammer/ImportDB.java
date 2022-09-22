@@ -41,7 +41,7 @@ public class ImportDB {
             rd.lines().forEach(line -> {
                 String[] strings = line.split(";");
                 if (strings.length != 2
-                    || Arrays.stream(strings).anyMatch(String::isBlank)
+                    || strings[0].isBlank() || strings[1].isBlank()
                     || !strings[1].contains("@")
                 ) {
 
