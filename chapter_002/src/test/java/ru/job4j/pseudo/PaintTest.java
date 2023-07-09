@@ -19,11 +19,11 @@ import static org.junit.Assert.assertThat;
  * Класс PaintTest тестирует методы класса Paint.
  */
 public class PaintTest {
-    //поле содержит дефолтный вывод в консоль
+    /*поле содержит дефолтный вывод в консоль*/
     private final PrintStream stdout = System.out;
-    //буфер для результата
+    /*буфер для результата*/
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
-    //перевод на новую строку
+    /*перевод на новую строку*/
     private final String ln = System.lineSeparator();
 
     /**
@@ -47,10 +47,10 @@ public class PaintTest {
     }
 
     @Test
-    //тест, проверяющий формирование квадрата c выводом в память
+    /*тест, проверяющий формирование квадрата c выводом в память*/
     public void whenDrawSquare() {
-        new Paint().draw(new Square()); //выполняем действия пишушиее в консоль
-        //проверяем результат вычисления
+        new Paint().draw(new Square()); /*выполняем действия пишушиее в консоль*/
+        /*проверяем результат вычисления*/
         assertThat(
                 new String(this.out.toByteArray()),
                 is(
@@ -69,10 +69,10 @@ public class PaintTest {
     }
 
     @Test
-    //тест, проверяющий формирование треугольника c выводом в память
+    /*тест, проверяющий формирование треугольника c выводом в память*/
     public void whenDrawTriangle() {
-        new Paint().draw(new Triangle()); //выполняем действия пишушиее в консоль
-        //проверяем результат вычисления
+        new Paint().draw(new Triangle()); /*выполняем действия пишушиее в консоль*/
+        /*проверяем результат вычисления*/
         assertThat(
                 new String(this.out.toByteArray()),
                 is(

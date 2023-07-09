@@ -12,11 +12,11 @@ package ru.job4j.loop;
 
 public class Counter {
 	public int add(int start, int finish) {
-		int sumEven = 0; // сумма четных чисел
+		int sumEven = 0; /* сумма четных чисел*/
 		for (int number = start; number <= finish; number++) {
-			// если деление на 2 с остатком, в остатке 0, то =>
+			/* если деление на 2 с остатком, в остатке 0, то =>*/
 			if (number % 2 == 0) {
-				sumEven = sumEven + number; // накапливать сумму четных чисел
+				sumEven = sumEven + number; /* накапливать сумму четных чисел*/
 			}
 		}
 		return sumEven;

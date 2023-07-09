@@ -10,7 +10,7 @@ package ru.job4j.profession;
  * Class Patient. Описывает пациента.
  */
 public class Patient {
-    private String name; //поле содержит имя пациента
+    private String name; /*поле содержит имя пациента*/
 
     /**
      * Метод  инициалицирует поле имя.

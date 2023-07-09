@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class PaintTest {
     @Test
     public void whenPyramidHeight2() {
-        //тест для пирамиды высотой 2
+        /*тест для пирамиды высотой 2*/
         Paint paint = new Paint();
         String result = paint.pyramid(2);
         System.out.println(result);
@@ -30,7 +30,7 @@ public class PaintTest {
 
     @Test
     public void whenPyramidHeight3() {
-        //тест для пирамиды высотой 3
+        /*тест для пирамиды высотой 3*/
         Paint paint = new Paint();
         String result = paint.pyramid(3);
         System.out.println(result);

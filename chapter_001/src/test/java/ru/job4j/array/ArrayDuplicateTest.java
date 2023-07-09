@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 public class ArrayDuplicateTest {
 	@Test
 	public void whenRemoveDuplicatesThenArrayWithoutDuplicate() {
-		//тест, проверяющий удаление дубликатов строк из массива строк.
+		/*тест, проверяющий удаление дубликатов строк из массива строк.*/
 		ArrayDuplicate dup = new ArrayDuplicate();
 		String[] input = {"Привет", "Вася", "Привет", "Мир", "Вася"};
 		String[] result = dup.remove(input);

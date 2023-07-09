@@ -10,7 +10,7 @@ package ru.job4j.profession;
  * Class House. Описывает дом.
  */
 public class House {
-    private String adress; //поле содержит адрес дома
+    private String adress; /*поле содержит адрес дома*/
 
     /**
      * Метод  инициалицирует поле адрес.

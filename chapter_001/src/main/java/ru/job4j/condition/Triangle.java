@@ -61,7 +61,7 @@ public class Triangle {
 	 * @return
 	 */
 	private boolean exist(double ab, double ac, double bc) {
-		// сторона треугольника меньше суммы двух других сторон
+		/* сторона треугольника меньше суммы двух других сторон*/
 		return (ab < ac + bc) && (ac < ab + bc) && (bc < ab + ac);
 	}
 }

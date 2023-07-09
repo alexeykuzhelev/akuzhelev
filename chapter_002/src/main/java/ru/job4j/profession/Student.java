@@ -10,7 +10,7 @@ package ru.job4j.profession;
  * Class Student. Описывает студента.
  */
 public class Student {
-    private String name; //поле содержит имя студента
+    private String name; /*поле содержит имя студента*/
 
     /**
      * Метод  инициалицирует поле имя.

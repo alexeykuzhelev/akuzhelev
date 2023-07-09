@@ -11,7 +11,7 @@ package ru.job4j.pseudo;
  */
 public class Triangle implements Shape {
 
-    private final String ln = System.lineSeparator(); //перевод на новую строку
+    private final String ln = System.lineSeparator(); /*перевод на новую строку*/
 
     /**
      * Метод формирует треугольник через формирование строк.

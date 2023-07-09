@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 public class TurnTest {
     @Test
     public void whenTurnArrayWithOddAmountOfElementsThenTurnedArray() {
-        //тест, проверяющий переворот массива с нечётным числом элементов.
+        /*тест, проверяющий переворот массива с нечётным числом элементов.*/
         Turn turner = new Turn();
         int[] input = {1, 2, 3, 4, 5};
         int[] result = turner.back(input);
@@ -23,7 +23,7 @@ public class TurnTest {
 
     @Test
     public void whenTurnArrayWithEvenAmountOfElementsThenTurnedArray() {
-        //тест, проверяющий переворот массива с чётным числом элементов.
+        /*тест, проверяющий переворот массива с чётным числом элементов.*/
         Turn turner = new Turn();
         int[] input = {4, 1, 6, 2};
         int[] result = turner.back(input);

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 public class BoardTest {
     @Test
     public void whenPaintBoardWithWidthThreeAndHeightThreeThenStringWithThreeColsAndThreeRows() {
-        //тест, проверяющий формирование доски 3 на 3.
+        /*тест, проверяющий формирование доски 3 на 3.*/
         Board board = new Board();
         String result = board.paint(3, 3);
         final String line = System.getProperty("line.separator");
@@ -24,7 +24,7 @@ public class BoardTest {
 
     @Test
     public void whenPaintBoardWithWidthFiveAndHeightFourThenStringWithFiveColsAndFourRows() {
-        //тест, проверяющий формирование доски 5 на 4.
+        /*тест, проверяющий формирование доски 5 на 4.*/
         Board board = new Board();
         String result = board.paint(5, 4);
         final String line = System.getProperty("line.separator");

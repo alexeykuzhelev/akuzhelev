@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 public class BubbleSortTest {
 	@Test
 	public void whenSortArrayWithTenElementsThenSortedArray() {
-		//тест, проверяющий сортировку массива из 10 элементов методом пузырька.
+		/*тест, проверяющий сортировку массива из 10 элементов методом пузырька.*/
 		BubbleSort bubble = new BubbleSort();
 		int[] input = {1, 5, 4, 2, 3, 1, 7, 8, 0, 5};
 		int[] result = bubble.sort(input);

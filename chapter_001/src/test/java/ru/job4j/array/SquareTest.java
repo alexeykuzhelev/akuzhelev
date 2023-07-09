@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 public class SquareTest {
     @Test
     public void whenBound3Then149() {
-        //тест, проверяющий заполняемость массива из трех элементов числами возведенными в квадрат
+        /*тест, проверяющий заполняемость массива из трех элементов числами возведенными в квадрат*/
         int bound = 3;
         Square square = new Square();
         int[] result = square.calculate(bound);
@@ -23,7 +23,7 @@ public class SquareTest {
 
     @Test
     public void whenBound3Then149162536() {
-        //тест, проверяющий заполняемость массива из шести элементов числами возведенными в квадрат
+        /*тест, проверяющий заполняемость массива из шести элементов числами возведенными в квадрат*/
         int bound = 6;
         Square square = new Square();
         int[] result = square.calculate(bound);
@@ -33,7 +33,7 @@ public class SquareTest {
 
     @Test
     public void whenBound3Then14() {
-        //тест, проверяющий заполняемость массива из двух элементов числами возведенными в квадрат
+        /*тест, проверяющий заполняемость массива из двух элементов числами возведенными в квадрат*/
         int bound = 2;
         Square square = new Square();
         int[] result = square.calculate(bound);

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 public class MatrixTest {
 	@Test
 	public void whenArrayWithSizeTwoThenMultiplyIndex() {
-		//тест, проверяющий заполняемость массива размером 2 элементами таблицы умножения
+		/*тест, проверяющий заполняемость массива размером 2 элементами таблицы умножения*/
 		Matrix matrix = new Matrix();
 		int[][] result = matrix.multiple(2);
 		int[][] expect = {
@@ -25,7 +25,7 @@ public class MatrixTest {
 
 	@Test
 	public void whenArrayWithSizeFourThenMultiplyIndex() {
-		//тест, проверяющий заполняемость массива размером 4 элементами таблицы умножения
+		/*тест, проверяющий заполняемость массива размером 4 элементами таблицы умножения*/
 		Matrix matrix = new Matrix();
 		int[][] result = matrix.multiple(4);
 		int[][] expect = {

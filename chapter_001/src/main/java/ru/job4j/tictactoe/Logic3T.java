@@ -24,8 +24,8 @@ public class Logic3T {
      * Метод проверки по диагоналям для Крестика.
      */
     private boolean checkDiagonalX() {
-        boolean diagonal1 = true; //переменная с результатом по первой диагонали
-        boolean diagonal2 = true; //переменная с результатом по второй диагонали
+        boolean diagonal1 = true; /*переменная с результатом по первой диагонали*/
+        boolean diagonal2 = true; /*переменная с результатом по второй диагонали*/
         for (int i = 0, j = 0; i < this.table.length; i++) {
             if (!this.table[i][j].hasMarkX()) {
                 diagonal1 = false;
@@ -47,8 +47,8 @@ public class Logic3T {
      * Метод проверки по горизонтали и вертикали для Крестика.
      */
     private boolean checkLinesX() {
-        boolean row = true; //переменная с результатом проверки по строкам
-        boolean column = true; //переменная с результатом проверки по столбцам
+        boolean row = true; /*переменная с результатом проверки по строкам*/
+        boolean column = true; /*переменная с результатом проверки по столбцам*/
         for (int i = 0; i < this.table.length; i++) {
             column = true;
             row = true;
@@ -82,8 +82,8 @@ public class Logic3T {
      * Метод проверки по диагоналям для Нолика.
      */
     private boolean checkDiagonalO() {
-        boolean diagonal1 = true; //переменная с результатом по первой диагонали
-        boolean diagonal2 = true; //переменная с результатом по второй диагонали
+        boolean diagonal1 = true; /*переменная с результатом по первой диагонали*/
+        boolean diagonal2 = true; /*переменная с результатом по второй диагонали*/
         for (int i = 0, j = 0; i < this.table.length; i++) {
             if (!this.table[i][j].hasMarkO()) {
                 diagonal1 = false;
@@ -105,8 +105,8 @@ public class Logic3T {
      * Метод проверки по горизонтали и вертикали для Нолика.
      */
     private boolean checkLinesO() {
-        boolean row = true; //переменная с результатом проверки по строкам
-        boolean column = true; //переменная с результатом проверки по столбцам
+        boolean row = true; /*переменная с результатом проверки по строкам*/
+        boolean column = true; /*переменная с результатом проверки по столбцам*/
         for (int i = 0; i < this.table.length; i++) {
             column = true;
             row = true;
@@ -134,7 +134,7 @@ public class Logic3T {
 	 * @return Если пустые клетки есть, вернет true, иначе false.
      */
     public boolean hasGap() {
-        boolean vacant = false; //переменная с результатом проверки на пустые клетки
+        boolean vacant = false; /*переменная с результатом проверки на пустые клетки*/
         for (int i = 0; i < this.table.length; i++) {
             vacant = false;
             for (int j = 0; j < this.table.length; j++) {

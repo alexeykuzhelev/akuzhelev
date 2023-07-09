@@ -11,13 +11,13 @@ package ru.job4j.loop;
  */
 
 public class Factorial {
-	// в метод приходит положительное целое число n, сам метод должен возвращать рассчитанный 
-	// факториал для этого числа 
+	/* в метод приходит положительное целое число n, сам метод должен возвращать рассчитанный
+	 факториал для этого числа */
 	public int calc(int n) {
 		int fact = 1;
-		for (int number = 1; number <= n; ++number) { // Умножаем, пока number <= числу n.
-			fact *= number;                          // это сокращение для fact = fact * number
+		for (int number = 1; number <= n; ++number) { /* Умножаем, пока number <= числу n.*/
+			fact *= number;                          /* это сокращение для fact = fact * number*/
 		}
-		return fact;                            // возвращаем методу вычисленный выше факториал
+		return fact;                            /* возвращаем методу вычисленный выше факториал*/
 	}
 }

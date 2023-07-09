@@ -13,9 +13,9 @@ import static org.junit.Assert.assertThat;
  
 public class SquareTest {
 	
-    private final String ln = System.lineSeparator(); //перевод на новую строку	
+    private final String ln = System.lineSeparator(); /*перевод на новую строку*/
 	
-	//тест, проверяющий формирование квадрата
+	/*тест, проверяющий формирование квадрата*/
     @Test
     public void whenDrawSquare() {
         Square square = new Square();

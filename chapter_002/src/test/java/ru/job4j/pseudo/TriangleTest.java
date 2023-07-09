@@ -13,9 +13,9 @@ import static org.junit.Assert.assertThat;
  
 public class TriangleTest {
 	
-    private final String ln = System.lineSeparator(); //перевод на новую строку	
+    private final String ln = System.lineSeparator(); /*перевод на новую строку*/
 	
-	//тест, проверяющий формирование треугольника
+	/*тест, проверяющий формирование треугольника*/
     @Test
     public void whenDrawTriangle() {
         Triangle triangle = new Triangle();
