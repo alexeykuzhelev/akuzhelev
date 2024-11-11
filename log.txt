@@ -1,0 +1,2 @@
+[2024-11-11T03:16:14.062+0300][info][gc] Using G1
+[2024-11-11T03:16:14.100+0300][info][gc] Periodic GC disabled
