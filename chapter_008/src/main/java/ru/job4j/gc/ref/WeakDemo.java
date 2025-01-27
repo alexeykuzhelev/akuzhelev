@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit;
 public class WeakDemo {
 
     public static void main(String[] args) throws InterruptedException {
-       /* example1();*/
-       /* example2();*/
-       /* example3();*/
+        /* example1();*/
+        /* example2();*/
+        /* example3();*/
         safeWeakRef();
     }
 
@@ -68,7 +68,7 @@ public class WeakDemo {
     private static void safeWeakRef() {
         WeakReference<List<String>> weakRef = new WeakReference<>(Arrays.asList("data1", "data2", "data3"));
         List<String> listRef = weakRef.get();
-        if(listRef != null) {
+        if (listRef != null) {
             listRef.forEach(System.out::println);
         }
     }
