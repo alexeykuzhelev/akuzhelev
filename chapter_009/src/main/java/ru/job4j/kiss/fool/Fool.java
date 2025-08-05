@@ -3,45 +3,43 @@ package ru.job4j.kiss.fool;
 import java.util.Scanner;
 
 public class Fool {
+    private static final String FIZZ_BUZZ = "FizzBuzz";
+    private static final String FIZZ = "Fizz";
+    private static final String BUZZ = "Buzz";
+    private static final int FIZZ_DIVISOR = 3;
+    private static final int BUZZ_DIVISOR = 5;
 
     public static void main(String[] args) {
         System.out.println("Игра FizzBuzz.");
         var startAt = 1;
-        var input = new Scanner(System.in);
+        var scanner = new Scanner(System.in);
+
         while (startAt < 100) {
-            if (startAt % 3 == 0 && startAt % 5 == 0) {
-                System.out.println("FizzBuzz");
-            } else if (startAt % 3 == 0) {
-                System.out.println("Fizz");
-            } else if (startAt % 5 == 0) {
-                System.out.println("Buzz");
-            } else {
-                System.out.println(startAt);
+            System.out.println(calculateFizzBuzz(startAt));
+            startAt++;
+
+            String answer = scanner.nextLine();
+            if (!answer.equals(calculateFizzBuzz(startAt))) {
+                System.out.println("Ошибка. Начинай снова.");
+                startAt = 1;
+                continue;
             }
             startAt++;
-            var answer = input.nextLine();
-            if (startAt % 3 == 0 && startAt % 5 == 0) {
-                if (!"FizzBuzz".equals(answer)) {
-                    System.out.println("Ошибка. Начинай снова.");
-                    startAt = 0;
-                }
-            } else if (startAt % 3 == 0) {
-                if (!"Fizz".equals(answer)) {
-                    System.out.println("Ошибка. Начинай снова.");
-                    startAt = 0;
-                }
-            } else if (startAt % 5 == 0) {
-                if (!"Buzz".equals(answer)) {
-                    System.out.println("Ошибка. Начинай снова.");
-                    startAt = 0;
-                }
-            } else {
-                if (!String.valueOf(startAt).equals(answer)) {
-                    System.out.println("Ошибка. Начинай снова.");
-                    startAt = 0;
-                }
-            }
-            startAt++;
+        }
+    }
+
+    static String calculateFizzBuzz(int number) {
+        boolean isFizz = number % FIZZ_DIVISOR == 0;
+        boolean isBuzz = number % BUZZ_DIVISOR == 0;
+
+        if (isFizz && isBuzz) {
+            return FIZZ_BUZZ;
+        } else if (isFizz) {
+            return FIZZ;
+        } else if (isBuzz) {
+            return BUZZ;
+        } else {
+            return String.valueOf(number);
         }
     }
 }
