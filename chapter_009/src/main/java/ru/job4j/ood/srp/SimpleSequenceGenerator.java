@@ -21,4 +21,9 @@ public class SimpleSequenceGenerator implements SequenceGenerator<Integer> {
                 .map(i -> numberGenerator.generate()).boxed()
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void print(List<Integer> numbers) {
+
+    }
 }
